@@ -62,15 +62,8 @@ let VALENTINE_DAYS = [...DEFAULT_VALENTINE_DAYS];
 let LOVE_QUOTES = [...DEFAULT_LOVE_QUOTES];
 let MEMORIES = [...DEFAULT_MEMORIES];
 
-// Default romantic 9:16 images for carousel
-const DEFAULT_GALLERY = [
-    "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=540&h=960&fit=crop",
-    "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=540&h=960&fit=crop",
-    "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=540&h=960&fit=crop",
-    "https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=540&h=960&fit=crop",
-    "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=540&h=960&fit=crop"
-];
-let currentGallery = [...DEFAULT_GALLERY];
+// Gallery images (loaded from Firebase)
+let currentGallery = [];
 
 // ============================================
 // Load Configuration from Firebase
@@ -141,26 +134,24 @@ function renderHeroCarousel() {
         return;
     }
     
-    // Use currentGallery if it has images
-    const images = currentGallery && currentGallery.length > 0 ? currentGallery : DEFAULT_GALLERY;
-    
-    if (images.length === 0) {
+    // Only show carousel if there are images from Firebase
+    if (!currentGallery || currentGallery.length === 0) {
         carousel.style.display = 'none';
         return;
     }
     
     // Create duplicate set for infinite scroll effect
-    const allImages = [...images, ...images];
+    const allImages = [...currentGallery, ...currentGallery];
     
     carousel.innerHTML = allImages.map((imgSrc, i) => `
         <div class="carousel-item" style="background-image: url('${imgSrc}');"></div>
     `).join('');
     
     // Adjust animation duration based on number of images
-    const duration = images.length * 8; // 8 seconds per image
+    const duration = currentGallery.length * 8; // 8 seconds per image
     carousel.style.animationDuration = `${duration}s`;
     
-    console.log(`Hero carousel rendered with ${images.length} images`);
+    console.log(`Hero carousel rendered with ${currentGallery.length} images`);
 }
 
 // ============================================
