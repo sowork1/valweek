@@ -559,14 +559,13 @@ async function saveGallery() {
         return;
     }
 
-    if (currentGallery.length === 0) {
-        showToast('⚠️ No images to save. Upload some images first!', 'error');
-        return;
-    }
-
     try {
         await database.ref(DB_PATHS.gallery).set(currentGallery);
-        showToast('Gallery saved to cloud! 🖼️', 'success');
+        if (currentGallery.length === 0) {
+            showToast('Gallery cleared! All images removed from cloud. 🗑️', 'success');
+        } else {
+            showToast(`Gallery saved to cloud! ${currentGallery.length} image(s) 🖼️`, 'success');
+        }
         console.log(`Saved ${currentGallery.length} images to Firebase`);
     } catch (error) {
         console.error('Error saving to Firebase:', error);
