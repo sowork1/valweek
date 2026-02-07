@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 Valentine's Week - Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="admin-nav">
+        <div class="nav-brand">
+            <span class="nav-icon">💕</span>
+            <span class="nav-title">Admin Panel</span>
+        </div>
+        <div class="nav-actions">
+            <a href="index.html" class="nav-link">
+                <span>View Site</span>
+                <span>🌹</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <nav class="sidebar-nav">
+                <button class="sidebar-btn active" data-section="security">
+                    <span class="btn-icon">🔐</span>
+                    <span class="btn-text">Security Settings</span>
+                </button>
+                <button class="sidebar-btn" data-section="days">
+                    <span class="btn-icon">📅</span>
+                    <span class="btn-text">Day Content</span>
+                </button>
+                <button class="sidebar-btn" data-section="memories">
+                    <span class="btn-icon">📸</span>
+                    <span class="btn-text">Memory Lane</span>
+                </button>
+                <button class="sidebar-btn" data-section="quotes">
+                    <span class="btn-icon">💌</span>
+                    <span class="btn-text">Love Quotes</span>
+                </button>
+                <button class="sidebar-btn" data-section="export">
+                    <span class="btn-icon">💾</span>
+                    <span class="btn-text">Export/Import</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Content Area -->
+        <section class="admin-content">
+            <!-- Security Settings Section -->
+            <div class="content-section active" id="security-section">
+                <div class="section-header">
+                    <h2>🔐 Security Settings</h2>
+                    <p>Configure the password and personal questions for site access</p>
+                </div>
+                
+                <div class="form-card">
+                    <h3>Password</h3>
+                    <div class="form-group">
+                        <label for="password">Access Password</label>
+                        <input type="text" id="password" class="form-input" placeholder="Enter password">
+                        <span class="form-hint">This is the secret code to unlock your Valentine's site</span>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>Personal Questions</h3>
+                    <p class="card-description">These questions help verify it's really your loved one accessing the site</p>
+                    
+                    <div id="questions-container">
+                        <!-- Questions will be rendered here -->
+                    </div>
+                    
+                    <button class="btn btn-secondary" id="add-question-btn">
+                        <span>➕</span>
+                        <span>Add Question</span>
+                    </button>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="save-security-btn">
+                        <span>💾</span>
+                        <span>Save Security Settings</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Day Content Section -->
+            <div class="content-section" id="days-section">
+                <div class="section-header">
+                    <h2>📅 Valentine's Week Content</h2>
+                    <p>Customize messages for each day of Valentine's Week</p>
+                </div>
+
+                <div class="day-tabs">
+                    <button class="day-tab active" data-day="0">🌹 Rose</button>
+                    <button class="day-tab" data-day="1">💍 Propose</button>
+                    <button class="day-tab" data-day="2">🍫 Chocolate</button>
+                    <button class="day-tab" data-day="3">🧸 Teddy</button>
+                    <button class="day-tab" data-day="4">🤝 Promise</button>
+                    <button class="day-tab" data-day="5">🤗 Hug</button>
+                    <button class="day-tab" data-day="6">💋 Kiss</button>
+                    <button class="day-tab" data-day="7">❤️ Valentine's</button>
+                </div>
+
+                <div class="form-card" id="day-editor">
+                    <!-- Day editor will be rendered here -->
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="save-days-btn">
+                        <span>💾</span>
+                        <span>Save Day Content</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Memory Lane Section -->
+            <div class="content-section" id="memories-section">
+                <div class="section-header">
+                    <h2>📸 Memory Lane</h2>
+                    <p>Customize your love story memories</p>
+                </div>
+
+                <div id="memories-container">
+                    <!-- Memories will be rendered here -->
+                </div>
+
+                <button class="btn btn-secondary" id="add-memory-btn">
+                    <span>➕</span>
+                    <span>Add Memory</span>
+                </button>
+
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="save-memories-btn">
+                        <span>💾</span>
+                        <span>Save Memories</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quotes Section -->
+            <div class="content-section" id="quotes-section">
+                <div class="section-header">
+                    <h2>💌 Love Quotes</h2>
+                    <p>Manage the rotating love quotes</p>
+                </div>
+
+                <div id="quotes-container">
+                    <!-- Quotes will be rendered here -->
+                </div>
+
+                <button class="btn btn-secondary" id="add-quote-btn">
+                    <span>➕</span>
+                    <span>Add Quote</span>
+                </button>
+
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="save-quotes-btn">
+                        <span>💾</span>
+                        <span>Save Quotes</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Export/Import Section -->
+            <div class="content-section" id="export-section">
+                <div class="section-header">
+                    <h2>💾 Export & Import</h2>
+                    <p>Backup or restore your configuration</p>
+                </div>
+
+                <div class="form-card">
+                    <h3>Export Configuration</h3>
+                    <p class="card-description">Download all your settings as a JSON file for backup</p>
+                    <button class="btn btn-primary" id="export-btn">
+                        <span>📥</span>
+                        <span>Export to JSON</span>
+                    </button>
+                </div>
+
+                <div class="form-card">
+                    <h3>Import Configuration</h3>
+                    <p class="card-description">Restore settings from a previously exported JSON file</p>
+                    <input type="file" id="import-file" accept=".json" class="file-input">
+                    <label for="import-file" class="btn btn-secondary file-label">
+                        <span>📤</span>
+                        <span>Choose JSON File</span>
+                    </label>
+                </div>
+
+                <div class="form-card danger-zone">
+                    <h3>⚠️ Danger Zone</h3>
+                    <p class="card-description">Reset all settings to default values</p>
+                    <button class="btn btn-danger" id="reset-btn">
+                        <span>🗑️</span>
+                        <span>Reset to Defaults</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

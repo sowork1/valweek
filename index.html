@@ -50,24 +50,11 @@
             <p class="login-subtitle">Answer these questions about us...</p>
             
             <div class="question-container">
-                <div class="question-item active" id="q1">
-                    <label class="question-label">💫 What's our special song?</label>
-                    <input type="text" class="love-input question-input" id="answer1" placeholder="Type your answer...">
-                </div>
-                <div class="question-item" id="q2">
-                    <label class="question-label">🌹 Where did we first meet?</label>
-                    <input type="text" class="love-input question-input" id="answer2" placeholder="Type your answer...">
-                </div>
-                <div class="question-item" id="q3">
-                    <label class="question-label">💝 What's my favorite thing about you?</label>
-                    <input type="text" class="love-input question-input" id="answer3" placeholder="Type your answer...">
-                </div>
+                <!-- Questions are dynamically rendered by JavaScript from localStorage/config -->
             </div>
             
             <div class="question-progress">
-                <span class="progress-dot active" data-q="1"></span>
-                <span class="progress-dot" data-q="2"></span>
-                <span class="progress-dot" data-q="3"></span>
+                <!-- Progress dots are dynamically rendered by JavaScript -->
             </div>
             
             <button class="love-button" id="nextQuestionBtn">
@@ -167,30 +154,7 @@
                 <span class="title-decoration">📸</span>
             </h2>
             <div class="memory-timeline">
-                <div class="memory-item">
-                    <div class="memory-dot"></div>
-                    <div class="memory-card">
-                        <span class="memory-icon">💫</span>
-                        <h3>The Day We Met</h3>
-                        <p>When our eyes first met, I knew my life would never be the same...</p>
-                    </div>
-                </div>
-                <div class="memory-item">
-                    <div class="memory-dot"></div>
-                    <div class="memory-card">
-                        <span class="memory-icon">💝</span>
-                        <h3>Our First Date</h3>
-                        <p>Butterflies, nervous laughter, and the beginning of forever...</p>
-                    </div>
-                </div>
-                <div class="memory-item">
-                    <div class="memory-dot"></div>
-                    <div class="memory-card">
-                        <span class="memory-icon">💕</span>
-                        <h3>When I Knew</h3>
-                        <p>That moment when I realized you're the one I want to spend my life with...</p>
-                    </div>
-                </div>
+                <!-- Memories are dynamically rendered by JavaScript from localStorage/config -->
             </div>
         </section>
 
@@ -223,9 +187,14 @@
             </div>
             <p class="footer-text">Made with infinite love for you 💕</p>
             <p class="footer-copyright">© 2026 Forever & Always</p>
+            <a href="admin.html" class="admin-link" title="Admin Panel">⚙️</a>
         </footer>
     </section>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

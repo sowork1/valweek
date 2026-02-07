@@ -1,34 +1,30 @@
-/* Valentine's Week - JavaScript */
+/* Valentine's Week - JavaScript with Firebase */
 
 // ============================================
-// Configuration - CUSTOMIZE THESE VALUES
+// Default Configuration Values
 // ============================================
-const CONFIG = {
-    // Password for access (change this to your secret password)
+const DEFAULT_CONFIG = {
     password: "iloveyou",
-    
-    // Personal Questions and Answers (customize these!)
     questions: [
         {
             question: "What's our special song?",
-            answer: "perfect", // accepts partial matches, case-insensitive
+            answer: "perfect",
             hint: "Think Ed Sheeran..."
         },
         {
             question: "Where did we first meet?",
-            answer: "coffee", // accepts partial matches
+            answer: "coffee",
             hint: "A cozy place..."
         },
         {
             question: "What's my favorite thing about you?",
-            answer: "smile", // accepts partial matches
+            answer: "smile",
             hint: "It lights up my world..."
         }
     ]
 };
 
-// Valentine's Week Data
-const VALENTINE_DAYS = [
+const DEFAULT_VALENTINE_DAYS = [
     { date: 7, name: "Rose Day", icon: "🌹", greeting: "Happy Rose Day!", subtitle: "Every rose I give you carries a piece of my heart", message: "Like this beautiful rose, my love for you blooms more with each passing day. You are the garden where my heart finds peace, the sunshine that makes my world bright, and the reason behind my every smile. Each petal represents a promise I make to you - to love, cherish, and adore you forever." },
     { date: 8, name: "Propose Day", icon: "💍", greeting: "Happy Propose Day!", subtitle: "Will you be mine, today and forever?", message: "Today I propose not just my love, but my entire being to you. I promise to be your partner in every adventure, your comfort in every storm, and your biggest cheerleader in every triumph. My heart chose you, and it keeps choosing you every single day. Will you continue this beautiful journey with me?" },
     { date: 9, name: "Chocolate Day", icon: "🍫", greeting: "Happy Chocolate Day!", subtitle: "You're sweeter than the sweetest chocolate", message: "Just like chocolate melts in warmth, my heart melts whenever I see you. You add sweetness to every moment of my life. If I could, I would wrap you in the finest chocolate and keep you close forever. But since I can't, I'll just love you with all my heart instead!" },
@@ -39,8 +35,7 @@ const VALENTINE_DAYS = [
     { date: 14, name: "Valentine's Day", icon: "❤️", greeting: "Happy Valentine's Day!", subtitle: "You are my today, my tomorrow, and my forever", message: "Today is the day when the whole world celebrates love, but for me, every day with you is Valentine's Day. You are not just my Valentine - you are my soulmate, my best friend, and my everything. Thank you for making my life the most beautiful love story ever written. I love you more than words could ever say!" }
 ];
 
-// Love Quotes
-const LOVE_QUOTES = [
+const DEFAULT_LOVE_QUOTES = [
     { text: "In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine.", author: "Maya Angelou" },
     { text: "I love you not only for what you are, but for what I am when I am with you.", author: "Roy Croft" },
     { text: "You are my sun, my moon, and all my stars.", author: "E.E. Cummings" },
@@ -52,6 +47,48 @@ const LOVE_QUOTES = [
     { text: "My heart is, and always will be, yours.", author: "Jane Austen" },
     { text: "I love you without knowing how, or when, or from where.", author: "Pablo Neruda" }
 ];
+
+const DEFAULT_MEMORIES = [
+    { icon: "💫", title: "The Day We Met", description: "When our eyes first met, I knew my life would never be the same..." },
+    { icon: "💝", title: "Our First Date", description: "Butterflies, nervous laughter, and the beginning of forever..." },
+    { icon: "💕", title: "When I Knew", description: "That moment when I realized you're the one I want to spend my life with..." }
+];
+
+// ============================================
+// Global State (loaded from Firebase)
+// ============================================
+let CONFIG = { ...DEFAULT_CONFIG };
+let VALENTINE_DAYS = [...DEFAULT_VALENTINE_DAYS];
+let LOVE_QUOTES = [...DEFAULT_LOVE_QUOTES];
+let MEMORIES = [...DEFAULT_MEMORIES];
+
+// ============================================
+// Load Configuration from Firebase
+// ============================================
+async function loadAllDataFromFirebase() {
+    if (!isFirebaseConfigured()) {
+        console.log('Firebase not configured, using defaults');
+        return;
+    }
+
+    try {
+        const [configSnap, daysSnap, memoriesSnap, quotesSnap] = await Promise.all([
+            database.ref(DB_PATHS.config).once('value'),
+            database.ref(DB_PATHS.days).once('value'),
+            database.ref(DB_PATHS.memories).once('value'),
+            database.ref(DB_PATHS.quotes).once('value')
+        ]);
+
+        if (configSnap.val()) CONFIG = configSnap.val();
+        if (daysSnap.val()) VALENTINE_DAYS = daysSnap.val();
+        if (memoriesSnap.val()) MEMORIES = memoriesSnap.val();
+        if (quotesSnap.val()) LOVE_QUOTES = quotesSnap.val();
+
+        console.log('Data loaded from Firebase');
+    } catch (error) {
+        console.error('Error loading from Firebase:', error);
+    }
+}
 
 // ============================================
 // DOM Elements
@@ -70,11 +107,55 @@ const sparkleContainer = document.getElementById('sparkleContainer');
 // ============================================
 // Initialize
 // ============================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Load data from Firebase first
+    await loadAllDataFromFirebase();
+    
+    // Then initialize the UI
+    renderDynamicQuestions();
     initBackgroundEffects();
     initEventListeners();
     setCurrentDate();
 });
+
+// ============================================
+// Dynamic Content Rendering
+// ============================================
+function renderDynamicQuestions() {
+    const container = document.querySelector('.question-container');
+    const progressContainer = document.querySelector('.question-progress');
+    
+    if (!container || !progressContainer) return;
+    
+    // Render questions
+    container.innerHTML = CONFIG.questions.map((q, i) => `
+        <div class="question-item ${i === 0 ? 'active' : ''}" id="q${i + 1}">
+            <label class="question-label">💫 ${q.question}</label>
+            <input type="text" class="love-input question-input" id="answer${i + 1}" placeholder="Type your answer...">
+        </div>
+    `).join('');
+    
+    // Render progress dots
+    progressContainer.innerHTML = CONFIG.questions.map((_, i) => `
+        <span class="progress-dot ${i === 0 ? 'active' : ''}" data-q="${i + 1}"></span>
+    `).join('');
+}
+
+function renderMemoryLane() {
+    const timeline = document.querySelector('.memory-timeline');
+    if (!timeline) return;
+    
+    timeline.innerHTML = MEMORIES.map(m => `
+        <div class="memory-item">
+            <div class="memory-dot"></div>
+            <div class="memory-card">
+                <span class="memory-icon">${m.icon}</span>
+                <h3>${m.title}</h3>
+                <p>${m.description}</p>
+            </div>
+        </div>
+    `).join('');
+}
 
 // ============================================
 // Background Effects
@@ -215,6 +296,7 @@ function showMainContent() {
 function initMainContent() {
     updateHeroForCurrentDay();
     renderDaysGrid();
+    renderMemoryLane();
     refreshQuote();
     initLoveMeter();
 }

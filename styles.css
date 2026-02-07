@@ -1000,6 +1000,22 @@ body {
     color: rgba(255, 255, 255, 0.5);
 }
 
+.admin-link {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+}
+
+.admin-link:hover {
+    color: var(--love-pink);
+    opacity: 1;
+    transform: rotate(90deg);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .login-card {
