@@ -124,11 +124,44 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadAllDataFromFirebase();
     
     // Then initialize the UI
+    renderHeroCarousel();
     renderDynamicQuestions();
     initBackgroundEffects();
     initEventListeners();
     setCurrentDate();
 });
+
+// ============================================
+// Hero Carousel Rendering
+// ============================================
+function renderHeroCarousel() {
+    const carousel = document.getElementById('heroCarousel');
+    if (!carousel) {
+        console.log('Hero carousel element not found');
+        return;
+    }
+    
+    // Use currentGallery if it has images
+    const images = currentGallery && currentGallery.length > 0 ? currentGallery : DEFAULT_GALLERY;
+    
+    if (images.length === 0) {
+        carousel.style.display = 'none';
+        return;
+    }
+    
+    // Create duplicate set for infinite scroll effect
+    const allImages = [...images, ...images];
+    
+    carousel.innerHTML = allImages.map((imgSrc, i) => `
+        <div class="carousel-item" style="background-image: url('${imgSrc}');"></div>
+    `).join('');
+    
+    // Adjust animation duration based on number of images
+    const duration = images.length * 8; // 8 seconds per image
+    carousel.style.animationDuration = `${duration}s`;
+    
+    console.log(`Hero carousel rendered with ${images.length} images`);
+}
 
 // ============================================
 // Dynamic Content Rendering
