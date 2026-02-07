@@ -551,17 +551,23 @@ async function saveQuotes() {
 }
 
 async function saveGallery() {
-    const galleryItems = document.querySelectorAll('.gallery-url');
-    currentGallery = Array.from(galleryItems).map(item => item.value.trim()).filter(url => url !== "");
+    // currentGallery already contains uploaded images from handleGalleryFileUpload
+    // No need to read from DOM elements
 
     if (!isFirebaseConfigured()) {
         showToast('⚠️ Firebase not configured! Changes not saved.', 'error');
         return;
     }
 
+    if (currentGallery.length === 0) {
+        showToast('⚠️ No images to save. Upload some images first!', 'error');
+        return;
+    }
+
     try {
         await database.ref(DB_PATHS.gallery).set(currentGallery);
         showToast('Gallery saved to cloud! 🖼️', 'success');
+        console.log(`Saved ${currentGallery.length} images to Firebase`);
     } catch (error) {
         console.error('Error saving to Firebase:', error);
         showToast('Error saving. Check console for details.', 'error');
