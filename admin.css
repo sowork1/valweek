@@ -265,6 +265,13 @@ body {
     margin-bottom: 0;
 }
 
+/* Multiple Choice Options Grid */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
 .question-header {
     display: flex;
     justify-content: space-between;

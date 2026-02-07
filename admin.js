@@ -8,17 +8,20 @@ const DEFAULT_CONFIG = {
     questions: [
         {
             question: "What's our special song?",
-            answer: "perfect",
+            options: ["Perfect", "Shape of You", "Thinking Out Loud", "Photograph"],
+            correctIndex: 0,
             hint: "Think Ed Sheeran..."
         },
         {
             question: "Where did we first meet?",
-            answer: "coffee",
+            options: ["Coffee Shop", "At Work", "Through Friends", "Online"],
+            correctIndex: 0,
             hint: "A cozy place..."
         },
         {
             question: "What's my favorite thing about you?",
-            answer: "smile",
+            options: ["Your Smile", "Your Eyes", "Your Laugh", "Your Heart"],
+            correctIndex: 0,
             hint: "It lights up my world..."
         }
     ]
@@ -198,7 +201,11 @@ function renderSecuritySection() {
     document.getElementById('password').value = currentConfig.password || '';
 
     const container = document.getElementById('questions-container');
-    container.innerHTML = currentConfig.questions.map((q, i) => `
+    container.innerHTML = currentConfig.questions.map((q, i) => {
+        const options = q.options || ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
+        const correctIndex = q.correctIndex !== undefined ? q.correctIndex : 0;
+        
+        return `
         <div class="question-item" data-index="${i}">
             <div class="question-header">
                 <span class="question-number">Question ${i + 1}</span>
@@ -209,15 +216,30 @@ function renderSecuritySection() {
                 <input type="text" class="form-input question-text" value="${escapeHtml(q.question)}" placeholder="Enter question">
             </div>
             <div class="form-group">
-                <label>Answer (accepts partial match, case-insensitive)</label>
-                <input type="text" class="form-input question-answer" value="${escapeHtml(q.answer)}" placeholder="Enter answer">
+                <label>Multiple Choice Options</label>
+                <div class="options-grid">
+                    <input type="text" class="form-input option-input" data-option="0" value="${escapeHtml(options[0] || '')}" placeholder="Option 1">
+                    <input type="text" class="form-input option-input" data-option="1" value="${escapeHtml(options[1] || '')}" placeholder="Option 2">
+                    <input type="text" class="form-input option-input" data-option="2" value="${escapeHtml(options[2] || '')}" placeholder="Option 3">
+                    <input type="text" class="form-input option-input" data-option="3" value="${escapeHtml(options[3] || '')}" placeholder="Option 4">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Correct Answer</label>
+                <select class="form-input correct-answer-select">
+                    <option value="0" ${correctIndex === 0 ? 'selected' : ''}>Option 1: ${escapeHtml(options[0] || '')}</option>
+                    <option value="1" ${correctIndex === 1 ? 'selected' : ''}>Option 2: ${escapeHtml(options[1] || '')}</option>
+                    <option value="2" ${correctIndex === 2 ? 'selected' : ''}>Option 3: ${escapeHtml(options[2] || '')}</option>
+                    <option value="3" ${correctIndex === 3 ? 'selected' : ''}>Option 4: ${escapeHtml(options[3] || '')}</option>
+                </select>
             </div>
             <div class="form-group">
                 <label>Hint (shown when wrong answer)</label>
-                <input type="text" class="form-input question-hint" value="${escapeHtml(q.hint)}" placeholder="Enter hint">
+                <input type="text" class="form-input question-hint" value="${escapeHtml(q.hint || '')}" placeholder="Enter hint">
             </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 }
 
 function renderDayEditor() {
@@ -342,7 +364,8 @@ function saveDayToState() {
 function addQuestion() {
     currentConfig.questions.push({
         question: "",
-        answer: "",
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+        correctIndex: 0,
         hint: ""
     });
     renderSecuritySection();
@@ -468,13 +491,20 @@ async function saveSecuritySettings() {
     // Get password
     currentConfig.password = document.getElementById('password').value.trim();
 
-    // Get questions
+    // Get questions with multiple choice options
     const questionItems = document.querySelectorAll('.question-item');
-    currentConfig.questions = Array.from(questionItems).map(item => ({
-        question: item.querySelector('.question-text').value.trim(),
-        answer: item.querySelector('.question-answer').value.trim(),
-        hint: item.querySelector('.question-hint').value.trim()
-    }));
+    currentConfig.questions = Array.from(questionItems).map(item => {
+        const optionInputs = item.querySelectorAll('.option-input');
+        const options = Array.from(optionInputs).map(input => input.value.trim());
+        const correctIndex = parseInt(item.querySelector('.correct-answer-select').value, 10);
+        
+        return {
+            question: item.querySelector('.question-text').value.trim(),
+            options: options,
+            correctIndex: correctIndex,
+            hint: item.querySelector('.question-hint').value.trim()
+        };
+    });
 
     if (!isFirebaseConfigured()) {
         showToast('⚠️ Firebase not configured! Changes not saved.', 'error');

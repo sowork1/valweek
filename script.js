@@ -8,17 +8,20 @@ const DEFAULT_CONFIG = {
     questions: [
         {
             question: "What's our special song?",
-            answer: "perfect",
+            options: ["Perfect", "Shape of You", "Thinking Out Loud", "Photograph"],
+            correctIndex: 0,
             hint: "Think Ed Sheeran..."
         },
         {
             question: "Where did we first meet?",
-            answer: "coffee",
+            options: ["Coffee Shop", "At Work", "Through Friends", "Online"],
+            correctIndex: 0,
             hint: "A cozy place..."
         },
         {
             question: "What's my favorite thing about you?",
-            answer: "smile",
+            options: ["Your Smile", "Your Eyes", "Your Laugh", "Your Heart"],
+            correctIndex: 0,
             hint: "It lights up my world..."
         }
     ]
@@ -163,18 +166,47 @@ function renderDynamicQuestions() {
     
     if (!container || !progressContainer) return;
     
-    // Render questions
-    container.innerHTML = CONFIG.questions.map((q, i) => `
+    // Render questions with multiple choice options
+    container.innerHTML = CONFIG.questions.map((q, i) => {
+        const options = q.options || ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
+        const optionsHTML = options.map((opt, optIndex) => `
+            <button type="button" class="option-btn" data-question="${i}" data-option="${optIndex}">
+                ${opt}
+            </button>
+        `).join('');
+        
+        return `
         <div class="question-item ${i === 0 ? 'active' : ''}" id="q${i + 1}">
             <label class="question-label">💫 ${q.question}</label>
-            <input type="text" class="love-input question-input" id="answer${i + 1}" placeholder="Type your answer...">
+            <div class="options-container">
+                ${optionsHTML}
+            </div>
+            <input type="hidden" class="selected-answer" id="answer${i + 1}" value="">
         </div>
-    `).join('');
+    `;
+    }).join('');
     
     // Render progress dots
     progressContainer.innerHTML = CONFIG.questions.map((_, i) => `
         <span class="progress-dot ${i === 0 ? 'active' : ''}" data-q="${i + 1}"></span>
     `).join('');
+    
+    // Add click handlers for option buttons
+    document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const qIndex = this.dataset.question;
+            const optIndex = this.dataset.option;
+            
+            // Remove selected class from siblings
+            this.parentElement.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            
+            // Add selected class to this button
+            this.classList.add('selected');
+            
+            // Store the selected answer index
+            document.getElementById(`answer${parseInt(qIndex) + 1}`).value = optIndex;
+        });
+    });
 }
 
 function renderMemoryLane() {
@@ -277,10 +309,16 @@ let currentQuestion = 0;
 
 function handleQuestionSubmit() {
     const currentInput = document.getElementById(`answer${currentQuestion + 1}`);
-    const answer = currentInput.value.trim().toLowerCase();
-    const correctAnswer = CONFIG.questions[currentQuestion].answer.toLowerCase();
+    const selectedOption = currentInput.value;
+    const correctIndex = CONFIG.questions[currentQuestion].correctIndex;
+    
+    // Check if an option was selected
+    if (selectedOption === '') {
+        showError(questionError, "💫 Please select an answer, my love!");
+        return;
+    }
 
-    if (answer.includes(correctAnswer) || correctAnswer.includes(answer)) {
+    if (parseInt(selectedOption) === correctIndex) {
         document.querySelectorAll('.progress-dot')[currentQuestion].classList.add('completed');
         
         if (currentQuestion < CONFIG.questions.length - 1) {
@@ -294,8 +332,12 @@ function handleQuestionSubmit() {
         }
     } else {
         showError(questionError, `💔 Hmm... that's not quite right. Hint: ${CONFIG.questions[currentQuestion].hint}`);
-        currentInput.classList.add('shake');
-        setTimeout(() => currentInput.classList.remove('shake'), 500);
+        // Add shake to the options container
+        const optionsContainer = document.querySelector(`.question-item.active .options-container`);
+        if (optionsContainer) {
+            optionsContainer.classList.add('shake');
+            setTimeout(() => optionsContainer.classList.remove('shake'), 500);
+        }
     }
 }
 
