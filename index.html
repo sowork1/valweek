@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 Valentine's Week - Forever Yours 💕</title>
+    <meta name="description" content="A personalized Valentine's Week celebration for the love of my life">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <!-- Sparkle Effect -->
+    <div class="sparkle-container" id="sparkleContainer"></div>
+
+    <!-- Login Screen - Layer 1: Password -->
+    <section class="login-screen active" id="passwordScreen">
+        <div class="login-card">
+            <div class="love-icon">
+                <span class="heart-pulse">💖</span>
+            </div>
+            <h1 class="login-title">Welcome, My Love</h1>
+            <p class="login-subtitle">Enter our secret code to continue...</p>
+            <div class="input-group">
+                <input type="password" id="passwordInput" class="love-input" placeholder="Enter Password" autocomplete="off">
+                <span class="input-icon">🔐</span>
+            </div>
+            <button class="love-button" id="passwordBtn">
+                <span>Unlock My Heart</span>
+                <span class="btn-hearts">💕</span>
+            </button>
+            <p class="error-message" id="passwordError"></p>
+            <div class="decorative-hearts">
+                <span>❤️</span><span>💗</span><span>💝</span><span>💘</span><span>💖</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Screen - Layer 2: Personal Questions -->
+    <section class="login-screen" id="questionsScreen">
+        <div class="login-card questions-card">
+            <div class="love-icon">
+                <span class="heart-pulse">💑</span>
+            </div>
+            <h1 class="login-title">Prove It's Really You!</h1>
+            <p class="login-subtitle">Answer these questions about us...</p>
+            
+            <div class="question-container">
+                <div class="question-item active" id="q1">
+                    <label class="question-label">💫 What's our special song?</label>
+                    <input type="text" class="love-input question-input" id="answer1" placeholder="Type your answer...">
+                </div>
+                <div class="question-item" id="q2">
+                    <label class="question-label">🌹 Where did we first meet?</label>
+                    <input type="text" class="love-input question-input" id="answer2" placeholder="Type your answer...">
+                </div>
+                <div class="question-item" id="q3">
+                    <label class="question-label">💝 What's my favorite thing about you?</label>
+                    <input type="text" class="love-input question-input" id="answer3" placeholder="Type your answer...">
+                </div>
+            </div>
+            
+            <div class="question-progress">
+                <span class="progress-dot active" data-q="1"></span>
+                <span class="progress-dot" data-q="2"></span>
+                <span class="progress-dot" data-q="3"></span>
+            </div>
+            
+            <button class="love-button" id="nextQuestionBtn">
+                <span>Next Question</span>
+                <span class="btn-hearts">→</span>
+            </button>
+            <p class="error-message" id="questionError"></p>
+        </div>
+    </section>
+
+    <!-- Main Content Screen -->
+    <section class="main-screen" id="mainScreen">
+        <!-- Navigation -->
+        <nav class="love-nav">
+            <div class="nav-logo">
+                <span class="logo-heart">💕</span>
+                <span class="logo-text">Forever Yours</span>
+            </div>
+            <div class="nav-date" id="currentDate"></div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="hero-section" id="heroSection">
+            <div class="hero-content">
+                <div class="day-badge" id="dayBadge">
+                    <span class="badge-icon">🌹</span>
+                    <span class="badge-text" id="dayName">Rose Day</span>
+                </div>
+                <h1 class="hero-title" id="heroTitle">Happy Rose Day!</h1>
+                <p class="hero-subtitle" id="heroSubtitle">Every rose I give you carries a piece of my heart</p>
+                <div class="hero-hearts">
+                    <span class="floating-heart" style="--delay: 0s">❤️</span>
+                    <span class="floating-heart" style="--delay: 0.5s">💗</span>
+                    <span class="floating-heart" style="--delay: 1s">💕</span>
+                    <span class="floating-heart" style="--delay: 1.5s">💖</span>
+                    <span class="floating-heart" style="--delay: 2s">💝</span>
+                </div>
+            </div>
+            <div class="hero-decoration">
+                <div class="rotating-heart">💖</div>
+            </div>
+        </header>
+
+        <!-- Message Section -->
+        <section class="message-section">
+            <div class="message-card" id="messageCard">
+                <div class="card-decoration top-left">✨</div>
+                <div class="card-decoration top-right">✨</div>
+                <div class="card-decoration bottom-left">💫</div>
+                <div class="card-decoration bottom-right">💫</div>
+                
+                <div class="message-header">
+                    <span class="message-icon" id="messageIcon">🌹</span>
+                    <h2 class="message-title">A Special Message For You</h2>
+                </div>
+                <div class="message-content" id="messageContent">
+                    <p>Like this beautiful rose, my love for you blooms more with each passing day. You are the garden where my heart finds peace, the sunshine that makes my world bright, and the reason behind my every smile.</p>
+                </div>
+                <div class="message-signature">
+                    <span class="signature-text">With all my love,</span>
+                    <span class="signature-heart">💕</span>
+                    <span class="signature-name">Forever Yours</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown Section -->
+        <section class="countdown-section">
+            <h2 class="section-title">
+                <span class="title-decoration">💝</span>
+                <span>Valentine's Week Countdown</span>
+                <span class="title-decoration">💝</span>
+            </h2>
+            <div class="days-grid" id="daysGrid">
+                <!-- Days will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Love Quotes Section -->
+        <section class="quotes-section">
+            <div class="quote-card">
+                <div class="quote-icon">💌</div>
+                <p class="quote-text" id="quoteText">"In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine."</p>
+                <span class="quote-author">— Maya Angelou</span>
+                <button class="quote-refresh" id="refreshQuote">
+                    <span>New Quote</span>
+                    <span>🔄</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Memory Lane Section -->
+        <section class="memory-section">
+            <h2 class="section-title">
+                <span class="title-decoration">📸</span>
+                <span>Our Love Story</span>
+                <span class="title-decoration">📸</span>
+            </h2>
+            <div class="memory-timeline">
+                <div class="memory-item">
+                    <div class="memory-dot"></div>
+                    <div class="memory-card">
+                        <span class="memory-icon">💫</span>
+                        <h3>The Day We Met</h3>
+                        <p>When our eyes first met, I knew my life would never be the same...</p>
+                    </div>
+                </div>
+                <div class="memory-item">
+                    <div class="memory-dot"></div>
+                    <div class="memory-card">
+                        <span class="memory-icon">💝</span>
+                        <h3>Our First Date</h3>
+                        <p>Butterflies, nervous laughter, and the beginning of forever...</p>
+                    </div>
+                </div>
+                <div class="memory-item">
+                    <div class="memory-dot"></div>
+                    <div class="memory-card">
+                        <span class="memory-icon">💕</span>
+                        <h3>When I Knew</h3>
+                        <p>That moment when I realized you're the one I want to spend my life with...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Love Meter -->
+        <section class="lovemeter-section">
+            <h2 class="section-title">
+                <span class="title-decoration">💓</span>
+                <span>Our Love Meter</span>
+                <span class="title-decoration">💓</span>
+            </h2>
+            <div class="lovemeter-container">
+                <div class="meter-display">
+                    <div class="meter-fill" id="meterFill"></div>
+                    <div class="meter-heart">💖</div>
+                </div>
+                <div class="meter-label">
+                    <span id="lovePercentage">100</span>% Pure Love
+                </div>
+                <button class="love-button meter-button" id="measureLove">
+                    <span>Measure Our Love</span>
+                    <span>💕</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="love-footer">
+            <div class="footer-hearts">
+                <span>💕</span><span>💗</span><span>💖</span><span>💝</span><span>💘</span>
+            </div>
+            <p class="footer-text">Made with infinite love for you 💕</p>
+            <p class="footer-copyright">© 2026 Forever & Always</p>
+        </footer>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

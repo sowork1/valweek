@@ -1,0 +1,1107 @@
+/* Valentine's Week - Premium CSS */
+:root {
+    --love-pink: #ff6b9d;
+    --deep-rose: #c9184a;
+    --soft-blush: #ffb5c5;
+    --romantic-red: #e63946;
+    --passionate-purple: #9d4edd;
+    --dreamy-lavender: #e0aaff;
+    --gold-accent: #ffd700;
+    --cream-white: #fff5f7;
+    --dark-romance: #2d1f2d;
+    --midnight-purple: #1a0a1f;
+    --gradient-love: linear-gradient(135deg, var(--love-pink), var(--deep-rose), var(--passionate-purple));
+    --gradient-dark: linear-gradient(135deg, var(--dark-romance), var(--midnight-purple));
+    --shadow-soft: 0 10px 40px rgba(255, 107, 157, 0.3);
+    --shadow-deep: 0 20px 60px rgba(201, 24, 74, 0.4);
+    --shadow-glow: 0 0 30px rgba(255, 107, 157, 0.5);
+    --font-script: 'Dancing Script', cursive;
+    --font-fancy: 'Great Vibes', cursive;
+    --font-main: 'Poppins', sans-serif;
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--gradient-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--cream-white);
+}
+
+/* Floating Hearts Background */
+.hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.floating-bg-heart {
+    position: absolute;
+    opacity: 0.15;
+    animation: floatUp 15s linear infinite;
+    font-size: 2rem;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    10%,
+    90% {
+        opacity: 0.15;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.sparkle-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.sparkle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: var(--gold-accent);
+    border-radius: 50%;
+    animation: sparkle 2s ease-in-out infinite;
+    box-shadow: 0 0 10px var(--gold-accent);
+}
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Login Screen */
+.login-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-dark);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-smooth);
+}
+
+.login-screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 107, 157, 0.3);
+    border-radius: 30px;
+    padding: 50px 40px;
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: var(--shadow-deep);
+    animation: cardAppear 0.8s ease-out;
+    position: relative;
+    z-index: 10;
+}
+
+@keyframes cardAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.questions-card {
+    max-width: 500px;
+}
+
+.love-icon {
+    margin-bottom: 20px;
+}
+
+.heart-pulse {
+    font-size: 4rem;
+    display: inline-block;
+    animation: heartPulse 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(255, 107, 157, 0.8));
+}
+
+@keyframes heartPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.login-title {
+    font-family: var(--font-script);
+    font-size: 2.5rem;
+    color: var(--love-pink);
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
+}
+
+.login-subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 30px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.love-input {
+    width: 100%;
+    padding: 18px 50px 18px 25px;
+    border: 2px solid rgba(255, 107, 157, 0.3);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--cream-white);
+    font-size: 1rem;
+    font-family: var(--font-main);
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.love-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.love-input:focus {
+    border-color: var(--love-pink);
+    box-shadow: var(--shadow-glow);
+    background: rgba(255, 107, 157, 0.15);
+}
+
+.input-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    pointer-events: none;
+}
+
+.love-button {
+    background: var(--gradient-love);
+    border: none;
+    padding: 18px 40px;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition-bounce);
+    box-shadow: var(--shadow-soft);
+}
+
+.love-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: var(--shadow-deep);
+}
+
+.btn-hearts {
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.error-message {
+    color: var(--romantic-red);
+    margin-top: 15px;
+    font-size: 0.9rem;
+    min-height: 25px;
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.error-message.show {
+    opacity: 1;
+}
+
+.decorative-hearts {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.decorative-hearts span {
+    font-size: 1.5rem;
+    animation: float 3s ease-in-out infinite;
+    opacity: 0.6;
+    transition: var(--transition-smooth);
+}
+
+.decorative-hearts span:hover {
+    opacity: 1;
+    transform: scale(1.3);
+}
+
+.decorative-hearts span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.decorative-hearts span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.decorative-hearts span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.decorative-hearts span:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.decorative-hearts span:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Question Screen */
+.question-container {
+    min-height: 120px;
+    margin-bottom: 20px;
+}
+
+.question-item {
+    display: none;
+}
+
+.question-item.active {
+    display: block;
+}
+
+.question-label {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--soft-blush);
+    margin-bottom: 15px;
+    text-align: left;
+    font-weight: 500;
+}
+
+.question-input {
+    text-align: left;
+}
+
+.question-progress {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: var(--transition-smooth);
+}
+
+.progress-dot.active {
+    background: var(--love-pink);
+    box-shadow: 0 0 15px var(--love-pink);
+    transform: scale(1.2);
+}
+
+.progress-dot.completed {
+    background: var(--gold-accent);
+}
+
+/* Main Screen */
+.main-screen {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.main-screen.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Navigation */
+.love-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(45, 31, 45, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    border-bottom: 1px solid rgba(255, 107, 157, 0.2);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-heart {
+    font-size: 1.8rem;
+    animation: heartPulse 1.5s ease-in-out infinite;
+}
+
+.logo-text {
+    font-family: var(--font-script);
+    font-size: 1.8rem;
+    color: var(--love-pink);
+}
+
+.nav-date {
+    font-size: 1rem;
+    color: var(--soft-blush);
+    padding: 10px 25px;
+    background: rgba(255, 107, 157, 0.1);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 107, 157, 0.3);
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 50px;
+    position: relative;
+}
+
+.hero-content {
+    text-align: center;
+}
+
+.day-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: rgba(255, 107, 157, 0.2);
+    border: 2px solid var(--love-pink);
+    border-radius: 50px;
+    margin-bottom: 30px;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
+    }
+
+    100% {
+        box-shadow: 0 0 40px rgba(255, 107, 157, 0.6);
+    }
+}
+
+.badge-icon {
+    font-size: 1.5rem;
+    animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.badge-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--love-pink);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.hero-title {
+    font-family: var(--font-fancy);
+    font-size: 5rem;
+    color: var(--cream-white);
+    margin-bottom: 20px;
+    text-shadow: 0 0 30px rgba(255, 107, 157, 0.5);
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--soft-blush);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+}
+
+.hero-hearts {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.floating-heart {
+    font-size: 2rem;
+    animation: floatHeart 3s ease-in-out infinite;
+    animation-delay: var(--delay);
+}
+
+@keyframes floatHeart {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.1);
+    }
+}
+
+.hero-decoration {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.rotating-heart {
+    font-size: 8rem;
+    animation: rotateHeart 10s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes rotateHeart {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Message Section */
+.message-section {
+    padding: 100px 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.message-card {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(157, 78, 221, 0.1));
+    border: 2px solid rgba(255, 107, 157, 0.3);
+    border-radius: 30px;
+    padding: 60px;
+    max-width: 800px;
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.message-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-deep);
+    border-color: var(--love-pink);
+}
+
+.card-decoration {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.5;
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.top-left {
+    top: 20px;
+    left: 20px;
+}
+
+.top-right {
+    top: 20px;
+    right: 20px;
+    animation-delay: 0.5s;
+}
+
+.bottom-left {
+    bottom: 20px;
+    left: 20px;
+    animation-delay: 1s;
+}
+
+.bottom-right {
+    bottom: 20px;
+    right: 20px;
+    animation-delay: 1.5s;
+}
+
+.message-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.message-icon {
+    font-size: 3rem;
+    display: inline-block;
+    animation: bounce 2s infinite;
+}
+
+.message-title {
+    font-family: var(--font-script);
+    font-size: 2rem;
+    color: var(--love-pink);
+    margin-top: 15px;
+}
+
+.message-content {
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.message-signature {
+    text-align: center;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.signature-text {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.signature-heart {
+    font-size: 2rem;
+    animation: heartPulse 1.5s infinite;
+}
+
+.signature-name {
+    font-family: var(--font-fancy);
+    font-size: 2rem;
+    color: var(--love-pink);
+}
+
+/* Countdown Section */
+.countdown-section {
+    padding: 100px 50px;
+}
+
+.section-title {
+    text-align: center;
+    font-family: var(--font-script);
+    font-size: 2.5rem;
+    color: var(--cream-white);
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.title-decoration {
+    font-size: 2rem;
+    animation: bounce 2s infinite;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.day-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 107, 157, 0.2);
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    transition: var(--transition-bounce);
+    cursor: pointer;
+}
+
+.day-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--love-pink);
+    box-shadow: var(--shadow-soft);
+}
+
+.day-card.active {
+    border-color: var(--gold-accent);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+}
+
+.day-card.active::after {
+    content: '✨ TODAY ✨';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--gold-accent);
+    color: var(--dark-romance);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.day-card.past {
+    opacity: 0.5;
+}
+
+.day-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 15px;
+    transition: var(--transition-smooth);
+}
+
+.day-card:hover .day-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.day-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--love-pink);
+    margin-bottom: 5px;
+}
+
+.day-date {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Quotes Section */
+.quotes-section {
+    padding: 100px 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.quote-card {
+    background: linear-gradient(135deg, rgba(157, 78, 221, 0.2), rgba(255, 107, 157, 0.1));
+    border: 2px solid rgba(157, 78, 221, 0.3);
+    border-radius: 30px;
+    padding: 50px;
+    max-width: 700px;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.quote-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 40px rgba(157, 78, 221, 0.3);
+}
+
+.quote-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.quote-text {
+    font-size: 1.4rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.quote-author {
+    color: var(--dreamy-lavender);
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 25px;
+}
+
+.quote-refresh {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 25px;
+    border-radius: 50px;
+    color: var(--cream-white);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quote-refresh:hover {
+    background: var(--love-pink);
+    border-color: var(--love-pink);
+}
+
+/* Memory Section */
+.memory-section {
+    padding: 100px 50px;
+}
+
+.memory-timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.memory-timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--gradient-love);
+}
+
+.memory-item {
+    position: relative;
+    padding-left: 60px;
+    margin-bottom: 40px;
+}
+
+.memory-dot {
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--love-pink);
+    border: 4px solid var(--dark-romance);
+    transition: var(--transition-smooth);
+}
+
+.memory-item:hover .memory-dot {
+    transform: scale(1.3);
+    box-shadow: 0 0 20px var(--love-pink);
+}
+
+.memory-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 107, 157, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    transition: var(--transition-smooth);
+}
+
+.memory-card:hover {
+    background: rgba(255, 107, 157, 0.1);
+    border-color: var(--love-pink);
+    transform: translateX(10px);
+}
+
+.memory-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.memory-card h3 {
+    font-family: var(--font-script);
+    font-size: 1.5rem;
+    color: var(--love-pink);
+    margin-bottom: 10px;
+}
+
+.memory-card p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+}
+
+/* Love Meter */
+.lovemeter-section {
+    padding: 100px 50px;
+    text-align: center;
+}
+
+.lovemeter-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.meter-display {
+    width: 100%;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+    border: 2px solid rgba(255, 107, 157, 0.3);
+}
+
+.meter-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--gradient-love);
+    border-radius: 30px;
+    transition: width 2s ease;
+}
+
+.meter-heart {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    animation: heartPulse 1s infinite;
+}
+
+.meter-label {
+    font-size: 1.3rem;
+    color: var(--love-pink);
+    margin-bottom: 25px;
+}
+
+.meter-label span {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* Footer */
+.love-footer {
+    padding: 50px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 107, 157, 0.2);
+}
+
+.footer-hearts {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.footer-hearts span {
+    font-size: 1.5rem;
+    animation: float 3s ease-in-out infinite;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.footer-hearts span:hover {
+    transform: scale(1.5);
+}
+
+.footer-text {
+    font-family: var(--font-script);
+    font-size: 1.3rem;
+    color: var(--love-pink);
+    margin-bottom: 10px;
+}
+
+.footer-copyright {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .login-card {
+        padding: 40px 25px;
+        margin: 20px;
+    }
+
+    .login-title {
+        font-size: 2rem;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .love-nav {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .hero-section {
+        padding: 100px 20px;
+    }
+
+    .message-section,
+    .countdown-section,
+    .quotes-section,
+    .memory-section,
+    .lovemeter-section {
+        padding: 60px 20px;
+    }
+
+    .message-card {
+        padding: 40px 25px;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .days-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .hero-decoration {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .days-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .love-button {
+        padding: 15px 30px;
+        font-size: 1rem;
+    }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    75% {
+        transform: translateX(10px);
+    }
+}
+
+.success-animation {
+    animation: successPop 0.5s ease-out;
+}
+
+@keyframes successPop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
