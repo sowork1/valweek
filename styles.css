@@ -748,7 +748,7 @@ body {
 }
 
 .day-card.past {
-    opacity: 0.5;
+    opacity: 1;
 }
 
 .day-card.locked {
