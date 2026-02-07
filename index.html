@@ -86,6 +86,16 @@
                 </div>
                 <h1 class="hero-title" id="heroTitle">Happy Rose Day!</h1>
                 <p class="hero-subtitle" id="heroSubtitle">Every rose I give you carries a piece of my heart</p>
+                <div class="hero-actions">
+                    <button class="hero-btn primary" onclick="document.getElementById('message').scrollIntoView({behavior: 'smooth'})">
+                        <span>💌</span>
+                        <span>Read My Message</span>
+                    </button>
+                    <button class="hero-btn secondary" onclick="document.getElementById('days').scrollIntoView({behavior: 'smooth'})">
+                        <span>📅</span>
+                        <span>Valentine's Calendar</span>
+                    </button>
+                </div>
                 <div class="hero-hearts">
                     <span class="floating-heart" style="--delay: 0s">❤️</span>
                     <span class="floating-heart" style="--delay: 0.5s">💗</span>
@@ -100,7 +110,7 @@
         </header>
 
         <!-- Message Section -->
-        <section class="message-section">
+        <section class="message-section" id="message">
             <div class="message-card" id="messageCard">
                 <div class="card-decoration top-left">✨</div>
                 <div class="card-decoration top-right">✨</div>
@@ -123,7 +133,7 @@
         </section>
 
         <!-- Countdown Section -->
-        <section class="countdown-section">
+        <section class="countdown-section" id="days">
             <h2 class="section-title">
                 <span class="title-decoration">💝</span>
                 <span>Valentine's Week Countdown</span>

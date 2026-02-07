@@ -61,7 +61,16 @@ let CONFIG = { ...DEFAULT_CONFIG };
 let VALENTINE_DAYS = [...DEFAULT_VALENTINE_DAYS];
 let LOVE_QUOTES = [...DEFAULT_LOVE_QUOTES];
 let MEMORIES = [...DEFAULT_MEMORIES];
-let currentGallery = [];
+
+// Default romantic 9:16 images for carousel
+const DEFAULT_GALLERY = [
+    "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=540&h=960&fit=crop",
+    "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=540&h=960&fit=crop",
+    "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=540&h=960&fit=crop",
+    "https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=540&h=960&fit=crop",
+    "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=540&h=960&fit=crop"
+];
+let currentGallery = [...DEFAULT_GALLERY];
 
 // ============================================
 // Load Configuration from Firebase
