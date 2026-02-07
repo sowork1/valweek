@@ -347,19 +347,40 @@ function setHeroContent(dayData) {
 
 function renderDaysGrid() {
     const grid = document.getElementById('daysGrid');
+    
+    // Get current date in IST
     const now = new Date();
-    const currentDay = now.getDate();
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const istTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60 * 1000) + istOffset);
+    const currentDay = istTime.getDate();
+    const currentMonth = istTime.getMonth() + 1;
     
     grid.innerHTML = VALENTINE_DAYS.map(day => {
         let statusClass = '';
-        if (day.date === currentDay) statusClass = 'active';
-        else if (day.date < currentDay) statusClass = 'past';
+        let isLocked = false;
+        
+        // Month check: if it's before February, everything is locked
+        // If it's February, check the date
+        // If it's after February, everything is unlocked
+        if (currentMonth < 2) {
+            isLocked = true;
+        } else if (currentMonth === 2) {
+            if (day.date === currentDay) {
+                statusClass = 'active';
+            } else if (day.date < currentDay) {
+                statusClass = 'past';
+            } else {
+                statusClass = 'locked';
+                isLocked = true;
+            }
+        }
         
         return `
-            <div class="day-card ${statusClass}" data-date="${day.date}" onclick="showDayDetails(${day.date})">
-                <span class="day-icon">${day.icon}</span>
+            <div class="day-card ${statusClass} ${isLocked ? 'locked' : ''}" data-date="${day.date}" onclick="${isLocked ? '' : `showDayDetails(${day.date})`}">
+                <span class="day-icon">${isLocked ? '🔒' : day.icon}</span>
                 <span class="day-name">${day.name}</span>
                 <span class="day-date">February ${day.date}</span>
+                ${isLocked ? '<span class="lock-tag">Locked</span>' : ''}
             </div>
         `;
     }).join('');
@@ -367,6 +388,16 @@ function renderDaysGrid() {
 
 // Make function globally accessible
 window.showDayDetails = function(date) {
+    // Extra safety check for locked days
+    const now = new Date();
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const istTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60 * 1000) + istOffset);
+    const currentDay = istTime.getDate();
+    const currentMonth = istTime.getMonth() + 1;
+    
+    if (currentMonth === 2 && date > currentDay) return;
+    if (currentMonth < 2) return;
+
     const day = VALENTINE_DAYS.find(d => d.date === date);
     if (day) {
         setHeroContent(day);
