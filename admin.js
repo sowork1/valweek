@@ -161,6 +161,7 @@ function initEventListeners() {
     // Gallery section
     document.getElementById('add-gallery-btn').addEventListener('click', addGalleryItem);
     document.getElementById('save-gallery-btn').addEventListener('click', saveGallery);
+    document.getElementById('gallery-file-input').addEventListener('change', handleGalleryFileUpload);
 
     // Export/Import section
     document.getElementById('export-btn').addEventListener('click', exportConfig);
@@ -290,21 +291,28 @@ function renderQuotes() {
 
 function renderGallery() {
     const container = document.getElementById('gallery-container');
-    container.innerHTML = currentGallery.map((url, i) => `
+    
+    if (currentGallery.length === 0) {
+        container.innerHTML = '<p style="color: rgba(255,255,255,0.5); text-align: center; padding: 20px;">No images yet. Upload some images or add URLs!</p>';
+        return;
+    }
+    
+    container.innerHTML = currentGallery.map((imgSrc, i) => {
+        const isBase64 = imgSrc.startsWith('data:image');
+        const displayType = isBase64 ? '📁 Uploaded' : '🔗 URL';
+        
+        return `
         <div class="gallery-item" data-index="${i}">
-            <div class="gallery-header">
-                <span class="gallery-number">Image ${i + 1}</span>
+            <div class="gallery-preview">
+                <img src="${imgSrc}" alt="Image ${i + 1}" onerror="this.style.display='none'">
+            </div>
+            <div class="gallery-info">
+                <span class="gallery-number">${displayType} - Image ${i + 1}</span>
                 <button class="remove-btn" onclick="removeGalleryItem(${i})">🗑️ Remove</button>
             </div>
-            <div class="form-group">
-                <label>Image URL</label>
-                <input type="text" class="form-input gallery-url" value="${escapeHtml(url)}" placeholder="https://example.com/image.jpg">
-                <div class="image-preview" style="margin-top: 10px;">
-                    <img src="${escapeHtml(url)}" alt="Preview" style="max-width: 100px; max-height: 100px; border-radius: 5px; display: ${url ? 'block' : 'none'};">
-                </div>
-            </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 }
 
 // ============================================
@@ -399,7 +407,52 @@ function addGalleryItem() {
 function removeGalleryItem(index) {
     currentGallery.splice(index, 1);
     renderGallery();
-    showToast('Image field removed!', 'info');
+    showToast('Image removed!', 'info');
+}
+
+// Handle file upload for gallery images
+async function handleGalleryFileUpload(event) {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
+
+    showToast(`Processing ${files.length} image(s)...`, 'info');
+
+    for (const file of files) {
+        if (!file.type.startsWith('image/')) {
+            showToast(`${file.name} is not an image file`, 'error');
+            continue;
+        }
+
+        // Check file size (max 2MB for base64 storage)
+        if (file.size > 2 * 1024 * 1024) {
+            showToast(`${file.name} is too large (max 2MB)`, 'error');
+            continue;
+        }
+
+        try {
+            const base64 = await convertToBase64(file);
+            currentGallery.push(base64);
+        } catch (error) {
+            console.error('Error converting image:', error);
+            showToast(`Error processing ${file.name}`, 'error');
+        }
+    }
+
+    renderGallery();
+    showToast(`${files.length} image(s) added! Don't forget to save.`, 'success');
+    
+    // Reset the file input
+    event.target.value = '';
+}
+
+// Convert file to base64
+function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
 }
 
 // Make remove functions globally accessible

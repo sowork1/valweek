@@ -178,17 +178,24 @@
             <div class="content-section" id="gallery-section">
                 <div class="section-header">
                     <h2>🖼️ Background Gallery</h2>
-                    <p>Manage images for the hero background carousel</p>
+                    <p>Upload images for the hero background carousel (recommended: 9:16 ratio)</p>
                 </div>
 
                 <div id="gallery-container" class="gallery-grid">
                     <!-- Gallery items will be rendered here -->
                 </div>
 
-                <button class="btn btn-secondary" id="add-gallery-btn">
-                    <span>➕</span>
-                    <span>Add Image URL</span>
-                </button>
+                <div class="gallery-upload-actions">
+                    <label class="btn btn-primary upload-btn">
+                        <span>📁</span>
+                        <span>Upload Image Files</span>
+                        <input type="file" id="gallery-file-input" accept="image/*" multiple hidden>
+                    </label>
+                    <button class="btn btn-secondary" id="add-gallery-btn">
+                        <span>🔗</span>
+                        <span>Add Image URL</span>
+                    </button>
+                </div>
 
                 <div class="form-actions">
                     <button class="btn btn-primary" id="save-gallery-btn">
