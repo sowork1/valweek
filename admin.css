@@ -324,12 +324,15 @@ body {
 }
 
 /* Memory Items */
-.memory-item {
-    background: var(--card-bg);
+.memory-item,
+.quote-item,
+.gallery-item {
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
 }
 
 .memory-header {

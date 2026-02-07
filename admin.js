@@ -61,6 +61,7 @@ let currentConfig = {};
 let currentDays = [];
 let currentMemories = [];
 let currentQuotes = [];
+let currentGallery = [];
 let currentDayIndex = 0;
 let isLoading = true;
 
@@ -99,17 +100,19 @@ async function loadAllDataFromFirebase() {
 
     try {
         // Load all data from Firebase
-        const [configSnap, daysSnap, memoriesSnap, quotesSnap] = await Promise.all([
+        const [configSnap, daysSnap, memoriesSnap, quotesSnap, gallerySnap] = await Promise.all([
             database.ref(DB_PATHS.config).once('value'),
             database.ref(DB_PATHS.days).once('value'),
             database.ref(DB_PATHS.memories).once('value'),
-            database.ref(DB_PATHS.quotes).once('value')
+            database.ref(DB_PATHS.quotes).once('value'),
+            database.ref(DB_PATHS.gallery).once('value')
         ]);
 
         currentConfig = configSnap.val() || { ...DEFAULT_CONFIG };
         currentDays = daysSnap.val() || [...DEFAULT_VALENTINE_DAYS];
         currentMemories = memoriesSnap.val() || [...DEFAULT_MEMORIES];
         currentQuotes = quotesSnap.val() || [...DEFAULT_QUOTES];
+        currentGallery = gallerySnap.val() || [];
 
         isLoading = false;
         renderAllSections();
@@ -155,6 +158,10 @@ function initEventListeners() {
     document.getElementById('add-quote-btn').addEventListener('click', addQuote);
     document.getElementById('save-quotes-btn').addEventListener('click', saveQuotes);
 
+    // Gallery section
+    document.getElementById('add-gallery-btn').addEventListener('click', addGalleryItem);
+    document.getElementById('save-gallery-btn').addEventListener('click', saveGallery);
+
     // Export/Import section
     document.getElementById('export-btn').addEventListener('click', exportConfig);
     document.getElementById('import-file').addEventListener('change', importConfig);
@@ -183,6 +190,7 @@ function renderAllSections() {
     renderDayEditor();
     renderMemories();
     renderQuotes();
+    renderGallery();
 }
 
 function renderSecuritySection() {
@@ -280,6 +288,25 @@ function renderQuotes() {
     `).join('');
 }
 
+function renderGallery() {
+    const container = document.getElementById('gallery-container');
+    container.innerHTML = currentGallery.map((url, i) => `
+        <div class="gallery-item" data-index="${i}">
+            <div class="gallery-header">
+                <span class="gallery-number">Image ${i + 1}</span>
+                <button class="remove-btn" onclick="removeGalleryItem(${i})">🗑️ Remove</button>
+            </div>
+            <div class="form-group">
+                <label>Image URL</label>
+                <input type="text" class="form-input gallery-url" value="${escapeHtml(url)}" placeholder="https://example.com/image.jpg">
+                <div class="image-preview" style="margin-top: 10px;">
+                    <img src="${escapeHtml(url)}" alt="Preview" style="max-width: 100px; max-height: 100px; border-radius: 5px; display: ${url ? 'block' : 'none'};">
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
 // ============================================
 // Day Editor Functions
 // ============================================
@@ -363,10 +390,23 @@ function removeQuote(index) {
     showToast('Quote removed!', 'info');
 }
 
+function addGalleryItem() {
+    currentGallery.push("");
+    renderGallery();
+    showToast('Image field added!', 'success');
+}
+
+function removeGalleryItem(index) {
+    currentGallery.splice(index, 1);
+    renderGallery();
+    showToast('Image field removed!', 'info');
+}
+
 // Make remove functions globally accessible
 window.removeQuestion = removeQuestion;
 window.removeMemory = removeMemory;
 window.removeQuote = removeQuote;
+window.removeGalleryItem = removeGalleryItem;
 
 // ============================================
 // Save Functions (Firebase)
@@ -457,6 +497,24 @@ async function saveQuotes() {
     }
 }
 
+async function saveGallery() {
+    const galleryItems = document.querySelectorAll('.gallery-url');
+    currentGallery = Array.from(galleryItems).map(item => item.value.trim()).filter(url => url !== "");
+
+    if (!isFirebaseConfigured()) {
+        showToast('⚠️ Firebase not configured! Changes not saved.', 'error');
+        return;
+    }
+
+    try {
+        await database.ref(DB_PATHS.gallery).set(currentGallery);
+        showToast('Gallery saved to cloud! 🖼️', 'success');
+    } catch (error) {
+        console.error('Error saving to Firebase:', error);
+        showToast('Error saving. Check console for details.', 'error');
+    }
+}
+
 // ============================================
 // Export/Import Functions
 // ============================================
@@ -466,6 +524,7 @@ function exportConfig() {
         days: currentDays,
         memories: currentMemories,
         quotes: currentQuotes,
+        gallery: currentGallery,
         exportedAt: new Date().toISOString()
     };
 
@@ -493,6 +552,7 @@ async function importConfig(event) {
             if (importData.days) currentDays = importData.days;
             if (importData.memories) currentMemories = importData.memories;
             if (importData.quotes) currentQuotes = importData.quotes;
+            if (importData.gallery) currentGallery = importData.gallery;
 
             // Save to Firebase
             if (isFirebaseConfigured()) {
@@ -500,7 +560,8 @@ async function importConfig(event) {
                     database.ref(DB_PATHS.config).set(currentConfig),
                     database.ref(DB_PATHS.days).set(currentDays),
                     database.ref(DB_PATHS.memories).set(currentMemories),
-                    database.ref(DB_PATHS.quotes).set(currentQuotes)
+                    database.ref(DB_PATHS.quotes).set(currentQuotes),
+                    database.ref(DB_PATHS.gallery).set(currentGallery)
                 ]);
             }
 
@@ -523,6 +584,7 @@ async function resetToDefaults() {
     currentDays = [...DEFAULT_VALENTINE_DAYS];
     currentMemories = [...DEFAULT_MEMORIES];
     currentQuotes = [...DEFAULT_QUOTES];
+    currentGallery = [];
 
     // Save defaults to Firebase
     if (isFirebaseConfigured()) {
@@ -531,7 +593,8 @@ async function resetToDefaults() {
                 database.ref(DB_PATHS.config).set(currentConfig),
                 database.ref(DB_PATHS.days).set(currentDays),
                 database.ref(DB_PATHS.memories).set(currentMemories),
-                database.ref(DB_PATHS.quotes).set(currentQuotes)
+                database.ref(DB_PATHS.quotes).set(currentQuotes),
+                database.ref(DB_PATHS.gallery).set(currentGallery)
             ]);
             showToast('Reset to defaults and saved to cloud!', 'info');
         } catch (error) {

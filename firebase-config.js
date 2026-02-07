@@ -24,7 +24,8 @@ const DB_PATHS = {
     config: 'valentine/config',
     days: 'valentine/days',
     memories: 'valentine/memories',
-    quotes: 'valentine/quotes'
+    quotes: 'valentine/quotes',
+    gallery: 'valentine/gallery'
 };
 
 // Check if Firebase is configured

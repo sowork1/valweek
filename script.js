@@ -61,6 +61,7 @@ let CONFIG = { ...DEFAULT_CONFIG };
 let VALENTINE_DAYS = [...DEFAULT_VALENTINE_DAYS];
 let LOVE_QUOTES = [...DEFAULT_LOVE_QUOTES];
 let MEMORIES = [...DEFAULT_MEMORIES];
+let currentGallery = [];
 
 // ============================================
 // Load Configuration from Firebase
@@ -72,17 +73,19 @@ async function loadAllDataFromFirebase() {
     }
 
     try {
-        const [configSnap, daysSnap, memoriesSnap, quotesSnap] = await Promise.all([
+        const [configSnap, daysSnap, memoriesSnap, quotesSnap, gallerySnap] = await Promise.all([
             database.ref(DB_PATHS.config).once('value'),
             database.ref(DB_PATHS.days).once('value'),
             database.ref(DB_PATHS.memories).once('value'),
-            database.ref(DB_PATHS.quotes).once('value')
+            database.ref(DB_PATHS.quotes).once('value'),
+            database.ref(DB_PATHS.gallery).once('value')
         ]);
 
         if (configSnap.val()) CONFIG = configSnap.val();
         if (daysSnap.val()) VALENTINE_DAYS = daysSnap.val();
         if (memoriesSnap.val()) MEMORIES = memoriesSnap.val();
         if (quotesSnap.val()) LOVE_QUOTES = quotesSnap.val();
+        if (gallerySnap.val()) currentGallery = gallerySnap.val();
 
         console.log('Data loaded from Firebase');
     } catch (error) {
@@ -297,8 +300,25 @@ function initMainContent() {
     updateHeroForCurrentDay();
     renderDaysGrid();
     renderMemoryLane();
+    renderHeroCarousel();
     refreshQuote();
     initLoveMeter();
+}
+
+function renderHeroCarousel() {
+    const carousel = document.getElementById('heroCarousel');
+    if (!carousel || currentGallery.length === 0) return;
+
+    // We double the images to create a seamless loop
+    const images = [...currentGallery, ...currentGallery];
+    
+    carousel.innerHTML = images.map(url => `
+        <div class="carousel-item" style="background-image: url('${url}')"></div>
+    `).join('');
+
+    // Adjust animation duration based on image count
+    const duration = currentGallery.length * 10; // 10s per image
+    carousel.style.animationDuration = `${duration}s`;
 }
 
 function setCurrentDate() {

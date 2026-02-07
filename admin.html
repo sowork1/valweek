@@ -45,6 +45,10 @@
                     <span class="btn-icon">💌</span>
                     <span class="btn-text">Love Quotes</span>
                 </button>
+                <button class="sidebar-btn" data-section="gallery">
+                    <span class="btn-icon">🖼️</span>
+                    <span class="btn-text">Background Gallery</span>
+                </button>
                 <button class="sidebar-btn" data-section="export">
                     <span class="btn-icon">💾</span>
                     <span class="btn-text">Export/Import</span>
@@ -148,24 +152,29 @@
 
             <!-- Quotes Section -->
             <div class="content-section" id="quotes-section">
+                <!-- ... existing quotes content ... -->
+            </div>
+
+            <!-- Background Gallery Section -->
+            <div class="content-section" id="gallery-section">
                 <div class="section-header">
-                    <h2>💌 Love Quotes</h2>
-                    <p>Manage the rotating love quotes</p>
+                    <h2>🖼️ Background Gallery</h2>
+                    <p>Manage images for the hero background carousel</p>
                 </div>
 
-                <div id="quotes-container">
-                    <!-- Quotes will be rendered here -->
+                <div id="gallery-container" class="gallery-grid">
+                    <!-- Gallery items will be rendered here -->
                 </div>
 
-                <button class="btn btn-secondary" id="add-quote-btn">
+                <button class="btn btn-secondary" id="add-gallery-btn">
                     <span>➕</span>
-                    <span>Add Quote</span>
+                    <span>Add Image URL</span>
                 </button>
 
                 <div class="form-actions">
-                    <button class="btn btn-primary" id="save-quotes-btn">
+                    <button class="btn btn-primary" id="save-gallery-btn">
                         <span>💾</span>
-                        <span>Save Quotes</span>
+                        <span>Save Gallery</span>
                     </button>
                 </div>
             </div>

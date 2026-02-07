@@ -446,6 +446,88 @@ body {
     border: 1px solid rgba(255, 107, 157, 0.3);
 }
 
+/* H.hero-section {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    overflow: hidden;
+}
+
+.hero-segment {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.hero-segment.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.hero-carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    z-index: 1;
+    animation: scrollBackground linear infinite;
+    will-change: transform;
+}
+
+.carousel-item {
+    width: 100vw;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+.hero-carousel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(26, 11, 22, 0.7) 0%,
+        rgba(26, 11, 22, 0.4) 50%,
+        rgba(26, 11, 22, 0.8) 100%
+    );
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 800px;
+    padding: 40px;
+    background: rgba(45, 20, 38, 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 107, 157, 0.2);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes scrollBackground {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
 /* Hero Section */
 .hero-section {
     min-height: 100vh;
