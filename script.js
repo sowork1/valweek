@@ -58,6 +58,86 @@ const DEFAULT_MEMORIES = [
 ];
 
 // ============================================
+// Theme Configuration
+// ============================================
+const DAY_THEMES = {
+    "Rose Day": {
+        primary: "#ff6b9d",
+        secondary: "#c9184a",
+        accent: "#ffd700",
+        symbols: ['🌹', '❤️', '💗', '💕'],
+        sparkleColor: "#ffd700"
+    },
+    "Propose Day": {
+        primary: "#00b4d8", // Diamond Blue
+        secondary: "#0077b6",
+        accent: "#e0f2fe",
+        symbols: ['💍', '💎', '✨', '💍'],
+        sparkleColor: "#e0f2fe"
+    },
+    "Chocolate Day": {
+        primary: "#7f5539", // Chocolate Brown
+        secondary: "#480ca8",
+        accent: "#ede0d4",
+        symbols: ['🍫', '🍩', '🍬', '🍪'],
+        sparkleColor: "#ede0d4"
+    },
+    "Teddy Day": {
+        primary: "#ffb5c5", // Soft Teddy Pink
+        secondary: "#ff4d6d",
+        accent: "#fff5f7",
+        symbols: ['🧸', '🧸', '💖', '🧸'],
+        sparkleColor: "#fff5f7"
+    },
+    "Promise Day": {
+        primary: "#9d4edd", // Loyal Purple
+        secondary: "#5a189a",
+        accent: "#e0bbff",
+        symbols: ['🤝', '✨', '💫', '💖'],
+        sparkleColor: "#e0bbff"
+    },
+    "Hug Day": {
+        primary: "#ff85a1", // Warm Pink
+        secondary: "#ff0a54",
+        accent: "#fbb1bd",
+        symbols: ['🤗', '🫂', '💕', '🧡'],
+        sparkleColor: "#fbb1bd"
+    },
+    "Kiss Day": {
+        primary: "#e63946", // Passionate Red
+        secondary: "#a4161a",
+        accent: "#f1faee",
+        symbols: ['💋', '😘', '❤️‍🔥', '🌹'],
+        sparkleColor: "#f1faee"
+    },
+    "Valentine's Day": {
+        primary: "#ff0000", // pure red
+        secondary: "#8b0000",
+        accent: "#ffd700",
+        symbols: ['❤️', '💘', '💝', '💖'],
+        sparkleColor: "#ffd700"
+    }
+};
+
+let currentThemeSymbols = ['❤️', '💗', '💕', '💖', '💝', '💘', '💓', '💞'];
+let currentSparkleColor = "#ffd700";
+
+function applyDayTheme(dayName) {
+    const theme = DAY_THEMES[dayName];
+    if (!theme) return;
+
+    const root = document.documentElement;
+    root.style.setProperty('--love-pink', theme.primary);
+    root.style.setProperty('--deep-rose', theme.secondary);
+    root.style.setProperty('--gold-accent', theme.accent);
+    
+    currentThemeSymbols = theme.symbols;
+    currentSparkleColor = theme.sparkleColor;
+    
+    console.log(`Applied theme for: ${dayName}`);
+}
+
+// ============================================
 // Global State (loaded from Firebase)
 // ============================================
 let CONFIG = { ...DEFAULT_CONFIG };
@@ -234,11 +314,10 @@ function initBackgroundEffects() {
 }
 
 function createFloatingHearts() {
-    const hearts = ['❤️', '💗', '💕', '💖', '💝', '💘', '💓', '💞'];
     setInterval(() => {
         const heart = document.createElement('span');
         heart.className = 'floating-bg-heart';
-        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.textContent = currentThemeSymbols[Math.floor(Math.random() * currentThemeSymbols.length)];
         heart.style.left = Math.random() * 100 + '%';
         heart.style.animationDuration = 10 + Math.random() * 10 + 's';
         heart.style.fontSize = 1 + Math.random() * 2 + 'rem';
@@ -253,6 +332,8 @@ function createSparkles() {
         sparkle.className = 'sparkle';
         sparkle.style.left = Math.random() * 100 + '%';
         sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.background = currentSparkleColor;
+        sparkle.style.boxShadow = `0 0 10px ${currentSparkleColor}`;
         sparkle.style.animationDelay = Math.random() * 2 + 's';
         sparkleContainer.appendChild(sparkle);
         setTimeout(() => sparkle.remove(), 3000);
@@ -432,6 +513,7 @@ function updateHeroForCurrentDay() {
 }
 
 function setHeroContent(dayData) {
+    applyDayTheme(dayData.name);
     document.getElementById('dayName').textContent = dayData.name;
     document.getElementById('heroTitle').textContent = dayData.greeting;
     document.getElementById('heroSubtitle').textContent = dayData.subtitle;
