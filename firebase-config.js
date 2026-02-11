@@ -32,7 +32,6 @@ const DB_PATHS = {
     panelBucketList: 'valentine/panels/bucketlist',
     panelReasons: 'valentine/panels/reasons',
     panelCoupons: 'valentine/panels/coupons',
-    panelSoundtrack: 'valentine/panels/soundtrack',
     panelGarden: 'valentine/panels/garden',
     panelDateNight: 'valentine/panels/datenight',
     panelLoveMatch: 'valentine/panels/lovematch'

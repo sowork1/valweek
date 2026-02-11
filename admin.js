@@ -115,11 +115,6 @@ const DEFAULT_COUPONS = [
     { icon: "🧊", title: "Ice Cream Date", desc: "A surprise ice cream outing to your favorite parlor." }
 ];
 
-const DEFAULT_SOUNDTRACK = [
-    { name: "Perfect", artist: "Ed Sheeran", story: "This was playing the first time we danced together. Every lyric felt like it was written just for us." },
-    { name: "All of Me", artist: "John Legend", story: "You played this for me on our anniversary and I couldn't hold back the tears. It's our truth." },
-    { name: "A Thousand Years", artist: "Christina Perri", story: "This captures exactly how I feel — I've loved you for a thousand years and I'll love you for a thousand more." }
-];
 
 const DEFAULT_GARDEN = [
     { emoji: "🌹", name: "Rose", date: 7, msg: "Like this rose, my love for you is timeless and beautiful. You make every day brighter." },
@@ -210,7 +205,7 @@ async function loadAllDataFromFirebase() {
         currentBucketList = [...DEFAULT_BUCKET_LIST];
         currentReasons = [...DEFAULT_REASONS];
         currentCoupons = [...DEFAULT_COUPONS];
-        currentSoundtrack = [...DEFAULT_SOUNDTRACK];
+        // currentSoundtrack removed
         currentGarden = [...DEFAULT_GARDEN];
         currentDateNight = [...DEFAULT_DATE_NIGHT];
         currentLoveMatchSymbols = [...DEFAULT_LOVE_MATCH_SYMBOLS];
@@ -225,7 +220,7 @@ async function loadAllDataFromFirebase() {
         const [
             configSnap, daysSnap, memoriesSnap, quotesSnap, gallerySnap,
             timelineSnap, envelopesSnap, bucketSnap, reasonsSnap, couponsSnap,
-            soundtrackSnap, gardenSnap, datenightSnap, lovematchSnap
+            gardenSnap, datenightSnap, lovematchSnap
         ] = await Promise.all([
             database.ref(DB_PATHS.config).once('value'),
             database.ref(DB_PATHS.days).once('value'),
@@ -237,7 +232,6 @@ async function loadAllDataFromFirebase() {
             database.ref(DB_PATHS.panelBucketList).once('value'),
             database.ref(DB_PATHS.panelReasons).once('value'),
             database.ref(DB_PATHS.panelCoupons).once('value'),
-            database.ref(DB_PATHS.panelSoundtrack).once('value'),
             database.ref(DB_PATHS.panelGarden).once('value'),
             database.ref(DB_PATHS.panelDateNight).once('value'),
             database.ref(DB_PATHS.panelLoveMatch).once('value')
@@ -255,7 +249,7 @@ async function loadAllDataFromFirebase() {
         currentBucketList = bucketSnap.val() || [...DEFAULT_BUCKET_LIST];
         currentReasons = reasonsSnap.val() || [...DEFAULT_REASONS];
         currentCoupons = couponsSnap.val() || [...DEFAULT_COUPONS];
-        currentSoundtrack = soundtrackSnap.val() || [...DEFAULT_SOUNDTRACK];
+        // currentSoundtrack removed
         currentGarden = gardenSnap.val() || [...DEFAULT_GARDEN];
         currentDateNight = datenightSnap.val() || [...DEFAULT_DATE_NIGHT];
 
@@ -280,7 +274,7 @@ async function loadAllDataFromFirebase() {
         currentBucketList = [...DEFAULT_BUCKET_LIST];
         currentReasons = [...DEFAULT_REASONS];
         currentCoupons = [...DEFAULT_COUPONS];
-        currentSoundtrack = [...DEFAULT_SOUNDTRACK];
+        // currentSoundtrack removed
         currentGarden = [...DEFAULT_GARDEN];
         currentDateNight = [...DEFAULT_DATE_NIGHT];
         currentLoveMatchSymbols = [...DEFAULT_LOVE_MATCH_SYMBOLS];
@@ -403,7 +397,7 @@ function renderAllSections() {
     renderBucketList();
     renderReasons();
     renderCoupons();
-    renderSoundtrack();
+    // renderSoundtrack() removed
     renderGarden();
     renderDateNight();
     renderLoveMatch();

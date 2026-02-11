@@ -424,14 +424,6 @@ function launchConfetti() {
 }
 
 /* ============================================
-   6. SOUNDTRACK GALLERY
-   ============================================ */
-le    // Panel 6: Soundtrack REMOVED
-
-    // Panel 7: Daily Garden
-
-
-/* ============================================
    7. VIRTUAL DAILY GARDEN
    ============================================ */
 let GARDEN_DATA = [
@@ -586,6 +578,11 @@ window.selectDateOption = (roundIdx, optIdx) => {
     // Just go next
     currentRound++;
     renderRound(currentRound);
+};
+
+window.resetDateNight = function() {
+    currentRound = 0;
+    renderRound(0);
 };
 
 /* ============================================

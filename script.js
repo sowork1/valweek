@@ -66,7 +66,6 @@ window.PANEL_ENVELOPES = [];
 window.PANEL_BUCKET_LIST = [];
 window.PANEL_REASONS = [];
 window.PANEL_COUPONS = [];
-window.PANEL_SOUNDTRACK = [];
 window.PANEL_GARDEN = [];
 window.PANEL_DATE_NIGHT = [];
 window.PANEL_LOVE_MATCH = {};
@@ -175,7 +174,7 @@ async function loadAllDataFromFirebase() {
         const [
             configSnap, daysSnap, memoriesSnap, quotesSnap, gallerySnap,
             timelineSnap, envelopesSnap, bucketSnap, reasonsSnap, couponsSnap,
-            soundtrackSnap, gardenSnap, datenightSnap, lovematchSnap
+            gardenSnap, datenightSnap, lovematchSnap
         ] = await Promise.all([
             database.ref(DB_PATHS.config).once('value'),
             database.ref(DB_PATHS.days).once('value'),
@@ -187,7 +186,6 @@ async function loadAllDataFromFirebase() {
             database.ref(DB_PATHS.panelBucketList).once('value'),
             database.ref(DB_PATHS.panelReasons).once('value'),
             database.ref(DB_PATHS.panelCoupons).once('value'),
-            database.ref(DB_PATHS.panelSoundtrack).once('value'),
             database.ref(DB_PATHS.panelGarden).once('value'),
             database.ref(DB_PATHS.panelDateNight).once('value'),
             database.ref(DB_PATHS.panelLoveMatch).once('value')
@@ -205,7 +203,6 @@ async function loadAllDataFromFirebase() {
         if (bucketSnap.val()) window.PANEL_BUCKET_LIST = bucketSnap.val();
         if (reasonsSnap.val()) window.PANEL_REASONS = reasonsSnap.val();
         if (couponsSnap.val()) window.PANEL_COUPONS = couponsSnap.val();
-        if (soundtrackSnap.val()) window.PANEL_SOUNDTRACK = soundtrackSnap.val();
         if (gardenSnap.val()) window.PANEL_GARDEN = gardenSnap.val();
         if (datenightSnap.val()) window.PANEL_DATE_NIGHT = datenightSnap.val();
         if (lovematchSnap.val()) window.PANEL_LOVE_MATCH = lovematchSnap.val();
