@@ -49,6 +49,42 @@
                     <span class="btn-icon">🖼️</span>
                     <span class="btn-text">Background Gallery</span>
                 </button>
+                <button class="sidebar-btn" data-section="p-timeline">
+                    <span class="btn-icon">📜</span>
+                    <span class="btn-text">Memory Lane</span>
+                </button>
+                <button class="sidebar-btn" data-section="p-envelopes">
+                    <span class="btn-icon">✉️</span>
+                    <span class="btn-text">Open When...</span>
+                </button>
+                <button class="sidebar-btn" data-section="p-bucketlist">
+                    <span class="btn-icon">✅</span>
+                    <span class="btn-text">Bucket List</span>
+                </button>
+                <button class="sidebar-btn" data-section="p-reasons">
+                    <span class="btn-icon">🏺</span>
+                    <span class="btn-text">Reason Jar</span>
+                </button>
+                <button class="sidebar-btn" data-section="p-coupons">
+                    <span class="btn-icon">🎟️</span>
+                    <span class="btn-text">Love Coupons</span>
+                </button>
+                <button class="sidebar-btn" data-section="p-soundtrack">
+                    <span class="btn-icon">🎵</span>
+                    <span class="btn-text">Soundtrack</span>
+                </button>
+                <button class="sidebar-btn" data-section="p-garden">
+                    <span class="btn-icon">🌸</span>
+                    <span class="btn-text">Daily Garden</span>
+                </button>
+                <button class="sidebar-btn" data-section="p-datenight">
+                    <span class="btn-icon">🌙</span>
+                    <span class="btn-text">Date Night</span>
+                </button>
+                <button class="sidebar-btn" data-section="p-lovematch">
+                    <span class="btn-icon">🃏</span>
+                    <span class="btn-text">Love Match</span>
+                </button>
                 <button class="sidebar-btn" data-section="export">
                     <span class="btn-icon">💾</span>
                     <span class="btn-text">Export/Import</span>
@@ -202,6 +238,139 @@
                         <span>💾</span>
                         <span>Save Gallery</span>
                     </button>
+                </div>
+            </div>
+
+            <!-- Panel 1: Memory Lane -->
+            <div class="content-section" id="p-timeline-section">
+                <div class="section-header">
+                    <h2>📜 Memory Lane Timeline</h2>
+                    <p>Manage your relationship milestones</p>
+                    <button class="btn btn-primary" id="save-p-timeline-btn">
+                        <span>💾</span>
+                        <span>Save Timeline</span>
+                    </button>
+                </div>
+                <div id="p-timeline-container"></div>
+                <button class="btn btn-secondary" id="add-p-timeline-btn">➕ Add Milestone</button>
+            </div>
+
+            <!-- Panel 2: Open When -->
+            <div class="content-section" id="p-envelopes-section">
+                <div class="section-header">
+                    <h2>✉️ Open When Envelopes</h2>
+                    <p>Customize your digital letters</p>
+                    <button class="btn btn-primary" id="save-p-envelopes-btn">
+                        <span>💾</span>
+                        <span>Save Envelopes</span>
+                    </button>
+                </div>
+                <div id="p-envelopes-container"></div>
+                <button class="btn btn-secondary" id="add-p-envelopes-btn">➕ Add Envelope</button>
+            </div>
+
+            <!-- Panel 3: Bucket List -->
+            <div class="content-section" id="p-bucketlist-section">
+                <div class="section-header">
+                    <h2>✅ Bucket List</h2>
+                    <p>Manage your couple's bucket list items</p>
+                    <button class="btn btn-primary" id="save-p-bucketlist-btn">
+                        <span>💾</span>
+                        <span>Save Bucket List</span>
+                    </button>
+                </div>
+                <div id="p-bucketlist-container"></div>
+                <button class="btn btn-secondary" id="add-p-bucketlist-btn">➕ Add Item</button>
+            </div>
+
+            <!-- Panel 4: Reason Jar -->
+            <div class="content-section" id="p-reasons-section">
+                <div class="section-header">
+                    <h2>🏺 Reason Why Jar</h2>
+                    <p>Add reasons why you love them</p>
+                    <button class="btn btn-primary" id="save-p-reasons-btn">
+                        <span>💾</span>
+                        <span>Save Reasons</span>
+                    </button>
+                </div>
+                <div id="p-reasons-container"></div>
+                <button class="btn btn-secondary" id="add-p-reasons-btn">➕ Add Reason</button>
+            </div>
+
+            <!-- Panel 5: Love Coupons -->
+            <div class="content-section" id="p-coupons-section">
+                <div class="section-header">
+                    <h2>🎟️ Love Coupons</h2>
+                    <p>Manage redeemable coupons</p>
+                    <button class="btn btn-primary" id="save-p-coupons-btn">
+                        <span>💾</span>
+                        <span>Save Coupons</span>
+                    </button>
+                </div>
+                <div id="p-coupons-container"></div>
+                <button class="btn btn-secondary" id="add-p-coupons-btn">➕ Add Coupon</button>
+            </div>
+
+            <!-- Panel 6: Soundtrack -->
+            <div class="content-section" id="p-soundtrack-section">
+                <div class="section-header">
+                    <h2>🎵 Soundtrack</h2>
+                    <p>Your special songs and stories</p>
+                    <button class="btn btn-primary" id="save-p-soundtrack-btn">
+                        <span>💾</span>
+                        <span>Save Songs</span>
+                    </button>
+                </div>
+                <div id="p-soundtrack-container"></div>
+                <button class="btn btn-secondary" id="add-p-soundtrack-btn">➕ Add Song</button>
+            </div>
+
+            <!-- Panel 7: Daily Garden -->
+            <div class="content-section" id="p-garden-section">
+                <div class="section-header">
+                    <h2>🌸 Daily Garden</h2>
+                    <p>Flowers and messages for Feb 7-14</p>
+                    <button class="btn btn-primary" id="save-p-garden-btn">
+                        <span>💾</span>
+                        <span>Save Garden</span>
+                    </button>
+                </div>
+                <div id="p-garden-container"></div>
+                <button class="btn btn-secondary" id="add-p-garden-btn">➕ Add Flower</button>
+            </div>
+
+            <!-- Panel 8: Date Night -->
+            <div class="content-section" id="p-datenight-section">
+                <div class="section-header">
+                    <h2>🌙 Date Night Decision</h2>
+                    <p>Configure the 3 question rounds</p>
+                    <button class="btn btn-primary" id="save-p-datenight-btn">
+                        <span>💾</span>
+                        <span>Save Rounds</span>
+                    </button>
+                </div>
+                <div id="p-datenight-container"></div>
+                <button class="btn btn-secondary" id="add-p-datenight-btn">➕ Add Round</button>
+            </div>
+
+            <!-- Panel 9: Love Match -->
+            <div class="content-section" id="p-lovematch-section">
+                <div class="section-header">
+                    <h2>🃏 Love Match Game</h2>
+                    <p>Manage game symbols and rewards</p>
+                    <button class="btn btn-primary" id="save-p-lovematch-btn">
+                        <span>💾</span>
+                        <span>Save Game Data</span>
+                    </button>
+                </div>
+                <div class="form-card">
+                    <h3>Game Symbols (Pairs)</h3>
+                    <div id="p-lovematch-symbols-container"></div>
+                </div>
+                <div class="form-card">
+                    <h3>Love Notes (Rewards)</h3>
+                    <div id="p-lovematch-notes-container"></div>
+                    <button class="btn btn-secondary" id="add-p-lovematch-note-btn">➕ Add Note</button>
                 </div>
             </div>
 

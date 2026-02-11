@@ -25,7 +25,16 @@ const DB_PATHS = {
     days: 'valentine/days',
     memories: 'valentine/memories',
     quotes: 'valentine/quotes',
-    gallery: 'valentine/gallery'
+    gallery: 'valentine/gallery',
+    panelTimeline: 'valentine/panels/timeline',
+    panelEnvelopes: 'valentine/panels/envelopes',
+    panelBucketList: 'valentine/panels/bucketlist',
+    panelReasons: 'valentine/panels/reasons',
+    panelCoupons: 'valentine/panels/coupons',
+    panelSoundtrack: 'valentine/panels/soundtrack',
+    panelGarden: 'valentine/panels/garden',
+    panelDateNight: 'valentine/panels/datenight',
+    panelLoveMatch: 'valentine/panels/lovematch'
 };
 
 // Check if Firebase is configured

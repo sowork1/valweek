@@ -57,6 +57,20 @@ const DEFAULT_MEMORIES = [
     { icon: "💕", title: "When I Knew", description: "That moment when I realized you're the one I want to spend my life with..." }
 ];
 
+
+// ============================================
+// Global State for Panels
+// ============================================
+window.PANEL_TIMELINE = [];
+window.PANEL_ENVELOPES = [];
+window.PANEL_BUCKET_LIST = [];
+window.PANEL_REASONS = [];
+window.PANEL_COUPONS = [];
+window.PANEL_SOUNDTRACK = [];
+window.PANEL_GARDEN = [];
+window.PANEL_DATE_NIGHT = [];
+window.PANEL_LOVE_MATCH = {};
+
 // ============================================
 // Theme Configuration
 // ============================================
@@ -158,12 +172,25 @@ async function loadAllDataFromFirebase() {
     }
 
     try {
-        const [configSnap, daysSnap, memoriesSnap, quotesSnap, gallerySnap] = await Promise.all([
+        const [
+            configSnap, daysSnap, memoriesSnap, quotesSnap, gallerySnap,
+            timelineSnap, envelopesSnap, bucketSnap, reasonsSnap, couponsSnap,
+            soundtrackSnap, gardenSnap, datenightSnap, lovematchSnap
+        ] = await Promise.all([
             database.ref(DB_PATHS.config).once('value'),
             database.ref(DB_PATHS.days).once('value'),
             database.ref(DB_PATHS.memories).once('value'),
             database.ref(DB_PATHS.quotes).once('value'),
-            database.ref(DB_PATHS.gallery).once('value')
+            database.ref(DB_PATHS.gallery).once('value'),
+            database.ref(DB_PATHS.panelTimeline).once('value'),
+            database.ref(DB_PATHS.panelEnvelopes).once('value'),
+            database.ref(DB_PATHS.panelBucketList).once('value'),
+            database.ref(DB_PATHS.panelReasons).once('value'),
+            database.ref(DB_PATHS.panelCoupons).once('value'),
+            database.ref(DB_PATHS.panelSoundtrack).once('value'),
+            database.ref(DB_PATHS.panelGarden).once('value'),
+            database.ref(DB_PATHS.panelDateNight).once('value'),
+            database.ref(DB_PATHS.panelLoveMatch).once('value')
         ]);
 
         if (configSnap.val()) CONFIG = configSnap.val();
@@ -171,10 +198,27 @@ async function loadAllDataFromFirebase() {
         if (memoriesSnap.val()) MEMORIES = memoriesSnap.val();
         if (quotesSnap.val()) LOVE_QUOTES = quotesSnap.val();
         if (gallerySnap.val()) currentGallery = gallerySnap.val();
+        
+        // Load Panel Data to Globals
+        if (timelineSnap.val()) window.PANEL_TIMELINE = timelineSnap.val();
+        if (envelopesSnap.val()) window.PANEL_ENVELOPES = envelopesSnap.val();
+        if (bucketSnap.val()) window.PANEL_BUCKET_LIST = bucketSnap.val();
+        if (reasonsSnap.val()) window.PANEL_REASONS = reasonsSnap.val();
+        if (couponsSnap.val()) window.PANEL_COUPONS = couponsSnap.val();
+        if (soundtrackSnap.val()) window.PANEL_SOUNDTRACK = soundtrackSnap.val();
+        if (gardenSnap.val()) window.PANEL_GARDEN = gardenSnap.val();
+        if (datenightSnap.val()) window.PANEL_DATE_NIGHT = datenightSnap.val();
+        if (lovematchSnap.val()) window.PANEL_LOVE_MATCH = lovematchSnap.val();
 
         console.log('Data loaded from Firebase');
+        
+        // Dispatch event for panels.js
+        window.dispatchEvent(new Event('valentineDataLoaded'));
+        
     } catch (error) {
         console.error('Error loading from Firebase:', error);
+        // Dispatch event even on error so panels can load defaults
+        window.dispatchEvent(new Event('valentineDataLoaded'));
     }
 }
 

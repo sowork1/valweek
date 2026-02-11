@@ -60,11 +60,120 @@ const DEFAULT_QUOTES = [
 // ============================================
 // State Management
 // ============================================
+// ============================================
+// Panel Defaults
+// ============================================
+const DEFAULT_TIMELINE = [
+    { date: "A Beautiful Day", title: "The Day We First Met", desc: "Our eyes met across the room and time stood still. That moment changed everything forever." },
+    { date: "Soon After", title: "Our First Conversation", desc: "Hours felt like minutes as we talked about everything and nothing. I knew you were special." },
+    { date: "A Magical Evening", title: "The First Date", desc: "Butterflies, nervous laughter, and the beginning of our forever story." },
+    { date: "A Quiet Moment", title: "When I First Said I Love You", desc: "Three words that carried the weight of a thousand emotions. And you said them back." },
+    { date: "Our Anniversary", title: "365 Days Together", desc: "A full year of memories, laughter, and growing love. Here's to infinity more." },
+    { date: "Forever Starts Now", title: "This Very Moment", desc: "Every second with you is my favorite. The best is always yet to come." }
+];
+
+const DEFAULT_ENVELOPES = [
+    { label: "Open when you need a hug", icon: "🤗", letter: "Close your eyes, wrap your arms around yourself, and imagine it's me. Every time you feel lonely, know that my love is wrapping around you like the warmest blanket in the world. You are never alone — my heart beats for you even from miles away." },
+    { label: "Open when you can't sleep", icon: "🌙", letter: "Hey my love, can't sleep? Count the reasons I love you instead of sheep: your smile, your laugh, the way you scrunch your nose, how you hold my hand... still awake? That's because the list is endless. Sweet dreams, my forever person." },
+    { label: "Open when you miss me", icon: "💭", letter: "I miss you too, always. But distance is just a test to see how far love can travel — and ours crosses galaxies. Every star in the sky is a reminder that our love shines even in the darkest moments. I'll be with you soon." },
+    { label: "Open when you're stressed", icon: "🫶", letter: "Take a deep breath. In... and out. Whatever is weighing on you right now is temporary, but my love for you is permanent. You've conquered harder things than this. I believe in you with my whole heart. You've got this, superstar." },
+    { label: "Open when you need motivation", icon: "⭐", letter: "Remember why you started. You are stronger, braver, and more talented than you know. Every step forward is a victory. I'm cheering for you louder than anyone. Now go make the world as beautiful as your smile!" },
+    { label: "Open when you want to smile", icon: "😊", letter: "Remember that time we laughed so hard we couldn't breathe? Or when we had that silly inside joke nobody else understood? This letter is your permission to be ridiculously happy right now. Smile — because someone out there loves your smile more than sunsets." }
+];
+
+const DEFAULT_BUCKET_LIST = [
+    "Watch the sunrise together on a beach",
+    "Cook a fancy dinner together at home",
+    "Go on a surprise road trip",
+    "Dance in the rain together",
+    "Write love letters to each other",
+    "Have a movie marathon until dawn",
+    "Visit a place neither of us has been",
+    "Learn something new together",
+    "Build a blanket fort and have hot chocolate",
+    "Plant a tree together and watch it grow",
+    "Stargaze on a clear night",
+    "Recreate our first date"
+];
+
+const DEFAULT_REASONS = [
+    "Because your smile is my favorite sight in the entire universe.",
+    "Because you understand me without me having to say a word.",
+    "Because you make ordinary moments feel extraordinary.",
+    "Because your laugh is the most beautiful music I've ever heard.",
+    "Because you believe in me even when I don't believe in myself."
+];
+
+const DEFAULT_COUPONS = [
+    { icon: "💆", title: "30-Minute Massage", desc: "A relaxing, no-strings-attached massage whenever you need it." },
+    { icon: "🍳", title: "Breakfast in Bed", desc: "Wake up to your favorite meal served with a side of love." },
+    { icon: "🎬", title: "Movie Night Pick", desc: "You choose the movie — no complaints, no negotiations!" },
+    { icon: "🧹", title: "Chore-Free Day", desc: "A full day where I do ALL the chores. You just relax." },
+    { icon: "🍕", title: "Pizza & Cuddles", desc: "Your favorite pizza + unlimited cuddles. Best combo ever." },
+    { icon: "🌟", title: "Wish Granted", desc: "One reasonable wish, no questions asked. Use wisely!" },
+    { icon: "🎵", title: "Serenade Session", desc: "I'll sing your favorite song (quality not guaranteed, love is)." },
+    { icon: "🧊", title: "Ice Cream Date", desc: "A surprise ice cream outing to your favorite parlor." }
+];
+
+const DEFAULT_SOUNDTRACK = [
+    { name: "Perfect", artist: "Ed Sheeran", story: "This was playing the first time we danced together. Every lyric felt like it was written just for us." },
+    { name: "All of Me", artist: "John Legend", story: "You played this for me on our anniversary and I couldn't hold back the tears. It's our truth." },
+    { name: "A Thousand Years", artist: "Christina Perri", story: "This captures exactly how I feel — I've loved you for a thousand years and I'll love you for a thousand more." }
+];
+
+const DEFAULT_GARDEN = [
+    { emoji: "🌹", name: "Rose", date: 7, msg: "Like this rose, my love for you is timeless and beautiful. You make every day brighter." },
+    { emoji: "🌷", name: "Tulip", date: 8, msg: "A tulip for my proposal — you are the perfect partner I've always dreamed of." },
+    { emoji: "🌻", name: "Sunflower", date: 9, msg: "You are my sunflower — you turn my darkest days into bright, golden moments." },
+    { emoji: "🌸", name: "Cherry Blossom", date: 10, msg: "Delicate and stunning, just like you. Our love blossoms with every passing season." },
+    { emoji: "🌺", name: "Hibiscus", date: 11, msg: "Bold and beautiful — a promise that our love will always be vibrant and alive." },
+    { emoji: "💐", name: "Bouquet", date: 12, msg: "A whole bouquet because you deserve all the flowers in the world. You are my everything." },
+    { emoji: "🌼", name: "Daisy", date: 13, msg: "Simple, pure, and full of joy — just like the love you give me every single day." },
+    { emoji: "❤️‍🔥", name: "Eternal Flame", date: 14, msg: "Our love burns eternal. Happy Valentine's Day to my forever person." }
+];
+
+const DEFAULT_DATE_NIGHT = [
+    {
+        question: "What's the vibe?",
+        options: [
+            { icon: "🍕", title: "Pizza & Games", desc: "Cozy night in with board games and pizza" },
+            { icon: "🍷", title: "Fancy Wine & Dine", desc: "Dress up and enjoy a candlelit dinner" }
+        ]
+    }, // Add more rounds as needed
+];
+
+const DEFAULT_LOVE_MATCH_SYMBOLS = [
+    { emoji: '🌹', name: 'Rose' }, { emoji: '💍', name: 'Ring' },
+    { emoji: '💌', name: 'Letter' }, { emoji: '❤️', name: 'Heart' },
+    { emoji: '🥂', name: 'Cheers' }, { emoji: '🦋', name: 'Butterfly' },
+    { emoji: '🌙', name: 'Moon' }, { emoji: '💎', name: 'Diamond' }
+];
+
+const DEFAULT_LOVE_MATCH_NOTES = [
+    "You are my sunshine on cloudy days ☀️",
+    "I love your laugh more than anything 💕",
+    "You make my heart skip a beat 💓",
+    "Every moment with you is magic ✨"
+];
+
+// ============================================
+// State Management
+// ============================================
 let currentConfig = {};
 let currentDays = [];
 let currentMemories = [];
 let currentQuotes = [];
 let currentGallery = [];
+let currentTimeline = [];
+let currentEnvelopes = [];
+let currentBucketList = [];
+let currentReasons = [];
+let currentCoupons = [];
+let currentSoundtrack = [];
+let currentGarden = [];
+let currentDateNight = [];
+let currentLoveMatchSymbols = [];
+let currentLoveMatchNotes = [];
 let currentDayIndex = 0;
 let isLoading = true;
 
@@ -96,6 +205,16 @@ async function loadAllDataFromFirebase() {
         currentDays = [...DEFAULT_VALENTINE_DAYS];
         currentMemories = [...DEFAULT_MEMORIES];
         currentQuotes = [...DEFAULT_QUOTES];
+        currentTimeline = [...DEFAULT_TIMELINE];
+        currentEnvelopes = [...DEFAULT_ENVELOPES];
+        currentBucketList = [...DEFAULT_BUCKET_LIST];
+        currentReasons = [...DEFAULT_REASONS];
+        currentCoupons = [...DEFAULT_COUPONS];
+        currentSoundtrack = [...DEFAULT_SOUNDTRACK];
+        currentGarden = [...DEFAULT_GARDEN];
+        currentDateNight = [...DEFAULT_DATE_NIGHT];
+        currentLoveMatchSymbols = [...DEFAULT_LOVE_MATCH_SYMBOLS];
+        currentLoveMatchNotes = [...DEFAULT_LOVE_MATCH_NOTES];
         isLoading = false;
         renderAllSections();
         return;
@@ -103,12 +222,25 @@ async function loadAllDataFromFirebase() {
 
     try {
         // Load all data from Firebase
-        const [configSnap, daysSnap, memoriesSnap, quotesSnap, gallerySnap] = await Promise.all([
+        const [
+            configSnap, daysSnap, memoriesSnap, quotesSnap, gallerySnap,
+            timelineSnap, envelopesSnap, bucketSnap, reasonsSnap, couponsSnap,
+            soundtrackSnap, gardenSnap, datenightSnap, lovematchSnap
+        ] = await Promise.all([
             database.ref(DB_PATHS.config).once('value'),
             database.ref(DB_PATHS.days).once('value'),
             database.ref(DB_PATHS.memories).once('value'),
             database.ref(DB_PATHS.quotes).once('value'),
-            database.ref(DB_PATHS.gallery).once('value')
+            database.ref(DB_PATHS.gallery).once('value'),
+            database.ref(DB_PATHS.panelTimeline).once('value'),
+            database.ref(DB_PATHS.panelEnvelopes).once('value'),
+            database.ref(DB_PATHS.panelBucketList).once('value'),
+            database.ref(DB_PATHS.panelReasons).once('value'),
+            database.ref(DB_PATHS.panelCoupons).once('value'),
+            database.ref(DB_PATHS.panelSoundtrack).once('value'),
+            database.ref(DB_PATHS.panelGarden).once('value'),
+            database.ref(DB_PATHS.panelDateNight).once('value'),
+            database.ref(DB_PATHS.panelLoveMatch).once('value')
         ]);
 
         currentConfig = configSnap.val() || { ...DEFAULT_CONFIG };
@@ -116,6 +248,20 @@ async function loadAllDataFromFirebase() {
         currentMemories = memoriesSnap.val() || [...DEFAULT_MEMORIES];
         currentQuotes = quotesSnap.val() || [...DEFAULT_QUOTES];
         currentGallery = gallerySnap.val() || [];
+        
+        // Panels
+        currentTimeline = timelineSnap.val() || [...DEFAULT_TIMELINE];
+        currentEnvelopes = envelopesSnap.val() || [...DEFAULT_ENVELOPES];
+        currentBucketList = bucketSnap.val() || [...DEFAULT_BUCKET_LIST];
+        currentReasons = reasonsSnap.val() || [...DEFAULT_REASONS];
+        currentCoupons = couponsSnap.val() || [...DEFAULT_COUPONS];
+        currentSoundtrack = soundtrackSnap.val() || [...DEFAULT_SOUNDTRACK];
+        currentGarden = gardenSnap.val() || [...DEFAULT_GARDEN];
+        currentDateNight = datenightSnap.val() || [...DEFAULT_DATE_NIGHT];
+
+        const lmData = lovematchSnap.val() || {};
+        currentLoveMatchSymbols = lmData.symbols || [...DEFAULT_LOVE_MATCH_SYMBOLS];
+        currentLoveMatchNotes = lmData.notes || [...DEFAULT_LOVE_MATCH_NOTES];
 
         isLoading = false;
         renderAllSections();
@@ -129,6 +275,17 @@ async function loadAllDataFromFirebase() {
         currentDays = [...DEFAULT_VALENTINE_DAYS];
         currentMemories = [...DEFAULT_MEMORIES];
         currentQuotes = [...DEFAULT_QUOTES];
+        currentTimeline = [...DEFAULT_TIMELINE];
+        currentEnvelopes = [...DEFAULT_ENVELOPES];
+        currentBucketList = [...DEFAULT_BUCKET_LIST];
+        currentReasons = [...DEFAULT_REASONS];
+        currentCoupons = [...DEFAULT_COUPONS];
+        currentSoundtrack = [...DEFAULT_SOUNDTRACK];
+        currentGarden = [...DEFAULT_GARDEN];
+        currentDateNight = [...DEFAULT_DATE_NIGHT];
+        currentLoveMatchSymbols = [...DEFAULT_LOVE_MATCH_SYMBOLS];
+        currentLoveMatchNotes = [...DEFAULT_LOVE_MATCH_NOTES];
+        
         isLoading = false;
         renderAllSections();
     }
@@ -170,6 +327,55 @@ function initEventListeners() {
     document.getElementById('export-btn').addEventListener('click', exportConfig);
     document.getElementById('import-file').addEventListener('change', importConfig);
     document.getElementById('reset-btn').addEventListener('click', resetToDefaults);
+
+    // ============================================
+    // Panel Event Listeners
+    // ============================================
+    
+    // Panel 1: Timeline
+    const addTimelineBtn = document.getElementById('add-timeline-btn');
+    if (addTimelineBtn) addTimelineBtn.addEventListener('click', addTimelineItem);
+    document.getElementById('save-timeline-btn').addEventListener('click', saveTimeline);
+
+    // Panel 2: Envelopes
+    const addEnvelopeBtn = document.getElementById('add-envelope-btn');
+    if (addEnvelopeBtn) addEnvelopeBtn.addEventListener('click', addEnvelope);
+    document.getElementById('save-envelopes-btn').addEventListener('click', saveEnvelopes);
+
+    // Panel 3: Bucket List
+    const addBucketBtn = document.getElementById('add-bucket-btn');
+    if (addBucketBtn) addBucketBtn.addEventListener('click', addBucketItem);
+    document.getElementById('save-bucket-btn').addEventListener('click', saveBucketList);
+
+    // Panel 4: Reason Jar
+    const addReasonBtn = document.getElementById('add-reason-btn');
+    if (addReasonBtn) addReasonBtn.addEventListener('click', addReason);
+    document.getElementById('save-reasons-btn').addEventListener('click', saveReasons);
+
+    // Panel 5: Coupons
+    const addCouponBtn = document.getElementById('add-coupon-btn');
+    if (addCouponBtn) addCouponBtn.addEventListener('click', addCoupon);
+    document.getElementById('save-coupons-btn').addEventListener('click', saveCoupons);
+
+    // Panel 6: Soundtrack
+    const addSongBtn = document.getElementById('add-song-btn');
+    if (addSongBtn) addSongBtn.addEventListener('click', addSong);
+    document.getElementById('save-soundtrack-btn').addEventListener('click', saveSoundtrack);
+
+    // Panel 7: Garden
+    const addFlowerBtn = document.getElementById('add-flower-btn');
+    if (addFlowerBtn) addFlowerBtn.addEventListener('click', addFlower);
+    document.getElementById('save-garden-btn').addEventListener('click', saveGarden);
+
+    // Panel 8: Date Night
+    const addDateBtn = document.getElementById('add-datenight-btn');
+    if (addDateBtn) addDateBtn.addEventListener('click', addDateRound);
+    document.getElementById('save-datenight-btn').addEventListener('click', saveDateNight);
+
+    // Panel 9: Love Match
+    const addNoteBtn = document.getElementById('add-lovematch-note-btn');
+    if (addNoteBtn) addNoteBtn.addEventListener('click', addLoveMatchNote);
+    document.getElementById('save-lovematch-btn').addEventListener('click', saveLoveMatch);
 }
 
 // ============================================
@@ -195,6 +401,15 @@ function renderAllSections() {
     renderMemories();
     renderQuotes();
     renderGallery();
+    renderTimeline();
+    renderEnvelopes();
+    renderBucketList();
+    renderReasons();
+    renderCoupons();
+    renderSoundtrack();
+    renderGarden();
+    renderDateNight();
+    renderLoveMatch();
 }
 
 function renderSecuritySection() {
@@ -456,17 +671,537 @@ async function handleGalleryFileUpload(event) {
             const base64 = await convertToBase64(file);
             currentGallery.push(base64);
         } catch (error) {
-            console.error('Error converting image:', error);
+            console.error('Error converting file:', error);
             showToast(`Error processing ${file.name}`, 'error');
         }
     }
 
     renderGallery();
-    showToast(`${files.length} image(s) added! Don't forget to save.`, 'success');
-    
-    // Reset the file input
-    event.target.value = '';
+    showToast(`Added ${files.length} images! Don't forget to save.`, 'success');
+    event.target.value = ''; // Reset input
 }
+
+
+// ============================================
+// PANEL 1: MEMORY LANE TIMELINE
+// ============================================
+function renderTimeline() {
+    const container = document.getElementById('p-timeline-container');
+    container.innerHTML = currentTimeline.map((m, i) => `
+        <div class="panel-item" data-index="${i}">
+            <div class="panel-item-header">
+                <span class="item-title">Milestone ${i + 1}</span>
+                <button class="remove-btn" onclick="removeTimelineItem(${i})">🗑️ Remove</button>
+            </div>
+            <div class="form-group">
+                <label>Date Label</label>
+                <input type="text" class="form-input tl-date" value="${escapeHtml(m.date)}" placeholder="e.g. A Beautiful Day">
+            </div>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-input tl-title" value="${escapeHtml(m.title)}" placeholder="Milestone Title">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-textarea tl-desc" placeholder="Details...">${escapeHtml(m.desc)}</textarea>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addTimelineItem() {
+    currentTimeline.push({ date: "New Memory", title: "Untitled Milestone", desc: "Description here..." });
+    renderTimeline();
+    showToast('Milestone added!', 'success');
+}
+
+function removeTimelineItem(index) {
+    if (currentTimeline.length <= 1) return showToast('Keep at least one milestone!', 'error');
+    currentTimeline.splice(index, 1);
+    renderTimeline();
+}
+
+async function saveTimeline() {
+    const items = document.querySelectorAll('#p-timeline-container .panel-item');
+    currentTimeline = Array.from(items).map(item => ({
+        date: item.querySelector('.tl-date').value.trim(),
+        title: item.querySelector('.tl-title').value.trim(),
+        desc: item.querySelector('.tl-desc').value.trim()
+    }));
+
+    if (!isFirebaseConfigured()) return showToast('Firebase not configured!', 'error');
+    try {
+        await database.ref(DB_PATHS.panelTimeline).set(currentTimeline);
+        showToast('Timeline saved! 📜', 'success');
+    } catch (e) { console.error(e); showToast('Error saving timeline', 'error'); }
+}
+
+
+// ============================================
+// PANEL 2: OPEN WHEN ENVELOPES
+// ============================================
+function renderEnvelopes() {
+    const container = document.getElementById('p-envelopes-container');
+    container.innerHTML = currentEnvelopes.map((e, i) => `
+        <div class="panel-item" data-index="${i}">
+            <div class="panel-item-header">
+                <span class="item-title">Envelope ${i + 1}</span>
+                <button class="remove-btn" onclick="removeEnvelope(${i})">🗑️ Remove</button>
+            </div>
+            <div class="form-group">
+                <label>Label</label>
+                <input type="text" class="form-input env-label" value="${escapeHtml(e.label)}" placeholder="Open when...">
+            </div>
+            <div class="form-group">
+                <label>Icon (Emoji)</label>
+                <input type="text" class="form-input env-icon" value="${e.icon}" placeholder="✉️">
+            </div>
+            <div class="form-group">
+                <label>Letter Content</label>
+                <textarea class="form-textarea env-letter" placeholder="Write your letter...">${escapeHtml(e.letter)}</textarea>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addEnvelope() {
+    currentEnvelopes.push({ label: "Open when...", icon: "✉️", letter: "Your letter here..." });
+    renderEnvelopes();
+    showToast('Envelope added!', 'success');
+}
+
+function removeEnvelope(index) {
+    if (currentEnvelopes.length <= 1) return showToast('Keep at least one envelope!', 'error');
+    currentEnvelopes.splice(index, 1);
+    renderEnvelopes();
+}
+
+async function saveEnvelopes() {
+    const items = document.querySelectorAll('#p-envelopes-container .panel-item');
+    currentEnvelopes = Array.from(items).map(item => ({
+        label: item.querySelector('.env-label').value.trim(),
+        icon: item.querySelector('.env-icon').value.trim(),
+        letter: item.querySelector('.env-letter').value.trim()
+    }));
+
+    if (!isFirebaseConfigured()) return showToast('Firebase not configured!', 'error');
+    try {
+        await database.ref(DB_PATHS.panelEnvelopes).set(currentEnvelopes);
+        showToast('Envelopes saved! ✉️', 'success');
+    } catch (e) { console.error(e); showToast('Error saving envelopes', 'error'); }
+}
+
+
+// ============================================
+// PANEL 3: BUCKET LIST
+// ============================================
+function renderBucketList() {
+    const container = document.getElementById('p-bucketlist-container');
+    container.innerHTML = currentBucketList.map((item, i) => `
+        <div class="panel-item-row" data-index="${i}">
+            <span class="row-number">${i + 1}.</span>
+            <input type="text" class="form-input bl-item" value="${escapeHtml(item)}" placeholder="Bucket list item...">
+            <button class="remove-btn-icon" onclick="removeBucketItem(${i})">🗑️</button>
+        </div>
+    `).join('');
+}
+
+function addBucketItem() {
+    currentBucketList.push("New bucket list goal");
+    renderBucketList();
+}
+
+function removeBucketItem(index) {
+    if (currentBucketList.length <= 1) return showToast('Keep at least one item!', 'error');
+    currentBucketList.splice(index, 1);
+    renderBucketList();
+}
+
+async function saveBucketList() {
+    const inputs = document.querySelectorAll('.bl-item');
+    currentBucketList = Array.from(inputs).map(input => input.value.trim());
+
+    if (!isFirebaseConfigured()) return showToast('Firebase not configured!', 'error');
+    try {
+        await database.ref(DB_PATHS.panelBucketList).set(currentBucketList);
+        showToast('Bucket List saved! ✅', 'success');
+    } catch (e) { console.error(e); showToast('Error saving bucket list', 'error'); }
+}
+
+
+// ============================================
+// PANEL 4: REASON JAR
+// ============================================
+function renderReasons() {
+    const container = document.getElementById('p-reasons-container');
+    container.innerHTML = currentReasons.map((r, i) => `
+        <div class="panel-item-row" data-index="${i}">
+            <span class="row-number">${i + 1}.</span>
+            <input type="text" class="form-input reason-item" value="${escapeHtml(r)}" placeholder="Because...">
+            <button class="remove-btn-icon" onclick="removeReason(${i})">🗑️</button>
+        </div>
+    `).join('');
+}
+
+function addReason() {
+    currentReasons.push("Because I love you...");
+    renderReasons();
+}
+
+function removeReason(index) {
+    if (currentReasons.length <= 1) return showToast('Keep at least one reason!', 'error');
+    currentReasons.splice(index, 1);
+    renderReasons();
+}
+
+async function saveReasons() {
+    const inputs = document.querySelectorAll('.reason-item');
+    currentReasons = Array.from(inputs).map(input => input.value.trim());
+
+    if (!isFirebaseConfigured()) return showToast('Firebase not configured!', 'error');
+    try {
+        await database.ref(DB_PATHS.panelReasons).set(currentReasons);
+        showToast('Reasons saved! 🏺', 'success');
+    } catch (e) { console.error(e); showToast('Error saving reasons', 'error'); }
+}
+
+
+// ============================================
+// PANEL 5: LOVE COUPONS
+// ============================================
+function renderCoupons() {
+    const container = document.getElementById('p-coupons-container');
+    container.innerHTML = currentCoupons.map((c, i) => `
+        <div class="panel-item" data-index="${i}">
+            <div class="panel-item-header">
+                <span class="item-title">Coupon ${i + 1}</span>
+                <button class="remove-btn" onclick="removeCoupon(${i})">🗑️ Remove</button>
+            </div>
+            <div class="form-grid">
+                <div class="form-group small">
+                    <label>Icon</label>
+                    <input type="text" class="form-input cp-icon" value="${c.icon}" placeholder="🎟️">
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-input cp-title" value="${escapeHtml(c.title)}" placeholder="Coupon Title">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" class="form-input cp-desc" value="${escapeHtml(c.desc)}" placeholder="Description...">
+            </div>
+        </div>
+    `).join('');
+}
+
+function addCoupon() {
+    currentCoupons.push({ icon: "🎟️", title: "New Coupon", desc: "Valid for one..." });
+    renderCoupons();
+    showToast('Coupon added!', 'success');
+}
+
+function removeCoupon(index) {
+    if (currentCoupons.length <= 1) return showToast('Keep at least one coupon!', 'error');
+    currentCoupons.splice(index, 1);
+    renderCoupons();
+}
+
+async function saveCoupons() {
+    const items = document.querySelectorAll('#p-coupons-container .panel-item');
+    currentCoupons = Array.from(items).map(item => ({
+        icon: item.querySelector('.cp-icon').value.trim(),
+        title: item.querySelector('.cp-title').value.trim(),
+        desc: item.querySelector('.cp-desc').value.trim()
+    }));
+
+    if (!isFirebaseConfigured()) return showToast('Firebase not configured!', 'error');
+    try {
+        await database.ref(DB_PATHS.panelCoupons).set(currentCoupons);
+        showToast('Coupons saved! 🎟️', 'success');
+    } catch (e) { console.error(e); showToast('Error saving coupons', 'error'); }
+}
+
+// ============================================
+// PANEL 6: SOUNDTRACK
+// ============================================
+function renderSoundtrack() {
+    const container = document.getElementById('p-soundtrack-container');
+    container.innerHTML = currentSoundtrack.map((s, i) => `
+        <div class="panel-item" data-index="${i}">
+            <div class="panel-item-header">
+                <span class="item-title">Song ${i + 1}</span>
+                <button class="remove-btn" onclick="removeSong(${i})">🗑️ Remove</button>
+            </div>
+            <div class="form-group">
+                <label>Song Name</label>
+                <input type="text" class="form-input st-name" value="${escapeHtml(s.name)}" placeholder="Song Title">
+            </div>
+            <div class="form-group">
+                <label>Artist</label>
+                <input type="text" class="form-input st-artist" value="${escapeHtml(s.artist)}" placeholder="Artist Name">
+            </div>
+            <div class="form-group">
+                <label>Our Story/Memory</label>
+                <textarea class="form-textarea st-story" placeholder="Why is this song special?">${escapeHtml(s.story)}</textarea>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addSong() {
+    currentSoundtrack.push({ name: "", artist: "", story: "" });
+    renderSoundtrack();
+    showToast('Song added!', 'success');
+}
+
+function removeSong(index) {
+    if (currentSoundtrack.length <= 1) return showToast('Keep at least one song!', 'error');
+    currentSoundtrack.splice(index, 1);
+    renderSoundtrack();
+}
+
+async function saveSoundtrack() {
+    const items = document.querySelectorAll('#p-soundtrack-container .panel-item');
+    currentSoundtrack = Array.from(items).map(item => ({
+        name: item.querySelector('.st-name').value.trim(),
+        artist: item.querySelector('.st-artist').value.trim(),
+        story: item.querySelector('.st-story').value.trim()
+    }));
+
+    if (!isFirebaseConfigured()) return showToast('Firebase not configured!', 'error');
+    try {
+        await database.ref(DB_PATHS.panelSoundtrack).set(currentSoundtrack);
+        showToast('Soundtrack saved! 🎵', 'success');
+    } catch (e) { console.error(e); showToast('Error saving soundtrack', 'error'); }
+}
+
+
+// ============================================
+// PANEL 7: DAILY GARDEN
+// ============================================
+function renderGarden() {
+    const container = document.getElementById('p-garden-container');
+    container.innerHTML = currentGarden.map((g, i) => `
+        <div class="panel-item" data-index="${i}">
+            <div class="panel-item-header">
+                <span class="item-title">Feb ${g.date || (7 + i)}: ${escapeHtml(g.name)}</span>
+                <button class="remove-btn" onclick="removeFlower(${i})">🗑️ Remove</button>
+            </div>
+            <div class="form-grid">
+                <div class="form-group small">
+                    <label>Emoji</label>
+                    <input type="text" class="form-input gd-emoji" value="${g.emoji}" placeholder="🌸">
+                </div>
+                <div class="form-group">
+                    <label>Flower Name</label>
+                    <input type="text" class="form-input gd-name" value="${escapeHtml(g.name)}" placeholder="Rose">
+                </div>
+                <div class="form-group small">
+                    <label>Date (Feb)</label>
+                    <input type="number" class="form-input gd-date" value="${g.date}" min="7" max="14">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea class="form-textarea gd-msg" placeholder="Flower message...">${escapeHtml(g.msg)}</textarea>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addFlower() {
+    currentGarden.push({ emoji: "🌸", name: "New Flower", date: 7, msg: "Message..." });
+    renderGarden();
+    showToast('Flower added!', 'success');
+}
+
+function removeFlower(index) {
+    if (currentGarden.length <= 1) return showToast('Keep at least one flower!', 'error');
+    currentGarden.splice(index, 1);
+    renderGarden();
+}
+
+async function saveGarden() {
+    const items = document.querySelectorAll('#p-garden-container .panel-item');
+    currentGarden = Array.from(items).map(item => ({
+        emoji: item.querySelector('.gd-emoji').value.trim(),
+        name: item.querySelector('.gd-name').value.trim(),
+        date: parseInt(item.querySelector('.gd-date').value) || 7,
+        msg: item.querySelector('.gd-msg').value.trim()
+    }));
+
+    if (!isFirebaseConfigured()) return showToast('Firebase not configured!', 'error');
+    try {
+        await database.ref(DB_PATHS.panelGarden).set(currentGarden);
+        showToast('Garden saved! 🌸', 'success');
+    } catch (e) { console.error(e); showToast('Error saving garden', 'error'); }
+}
+
+
+// ============================================
+// PANEL 8: DATE NIGHT
+// ============================================
+function renderDateNight() {
+    const container = document.getElementById('p-datenight-container');
+    container.innerHTML = currentDateNight.map((round, i) => `
+        <div class="panel-item" data-index="${i}">
+            <div class="panel-item-header">
+                <span class="item-title">Round ${i + 1}</span>
+                <button class="remove-btn" onclick="removeDateRound(${i})">🗑️ Remove</button>
+            </div>
+            <div class="form-group">
+                <label>Question</label>
+                <input type="text" class="form-input dn-question" value="${escapeHtml(round.question)}" placeholder="e.g. What's the vibe?">
+            </div>
+            
+            <div class="options-container" style="margin-top: 10px; border-left: 2px solid rgba(255,255,255,0.1); padding-left: 10px;">
+                <p style="margin-bottom: 5px; font-size: 0.9em; opacity: 0.8;">Option 1</p>
+                <div class="form-grid">
+                    <div class="form-group small">
+                        <input type="text" class="form-input dn-op1-icon" value="${round.options[0].icon}" placeholder="Icon">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-input dn-op1-title" value="${escapeHtml(round.options[0].title)}" placeholder="Title">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-input dn-op1-desc" value="${escapeHtml(round.options[0].desc)}" placeholder="Description">
+                </div>
+
+                <p style="margin-bottom: 5px; font-size: 0.9em; opacity: 0.8; margin-top: 10px;">Option 2</p>
+                <div class="form-grid">
+                    <div class="form-group small">
+                        <input type="text" class="form-input dn-op2-icon" value="${round.options[1].icon}" placeholder="Icon">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-input dn-op2-title" value="${escapeHtml(round.options[1].title)}" placeholder="Title">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-input dn-op2-desc" value="${escapeHtml(round.options[1].desc)}" placeholder="Description">
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addDateRound() {
+    currentDateNight.push({
+        question: "New Question",
+        options: [
+            { icon: "🅰️", title: "Option A", desc: "Description A" },
+            { icon: "🅱️", title: "Option B", desc: "Description B" }
+        ]
+    });
+    renderDateNight();
+    showToast('Round added!', 'success');
+}
+
+function removeDateRound(index) {
+    if (currentDateNight.length <= 1) return showToast('Keep at least one round!', 'error');
+    currentDateNight.splice(index, 1);
+    renderDateNight();
+}
+
+async function saveDateNight() {
+    const items = document.querySelectorAll('#p-datenight-container .panel-item');
+    currentDateNight = Array.from(items).map(item => ({
+        question: item.querySelector('.dn-question').value.trim(),
+        options: [
+            {
+                icon: item.querySelector('.dn-op1-icon').value.trim(),
+                title: item.querySelector('.dn-op1-title').value.trim(),
+                desc: item.querySelector('.dn-op1-desc').value.trim()
+            },
+            {
+                icon: item.querySelector('.dn-op2-icon').value.trim(),
+                title: item.querySelector('.dn-op2-title').value.trim(),
+                desc: item.querySelector('.dn-op2-desc').value.trim()
+            }
+        ]
+    }));
+
+    if (!isFirebaseConfigured()) return showToast('Firebase not configured!', 'error');
+    try {
+        await database.ref(DB_PATHS.panelDateNight).set(currentDateNight);
+        showToast('Date Night saved! 🌙', 'success');
+    } catch (e) { console.error(e); showToast('Error saving date night', 'error'); }
+}
+
+
+// ============================================
+// PANEL 9: LOVE MATCH
+// ============================================
+function renderLoveMatch() {
+    // Render Symbols
+    const symContainer = document.getElementById('p-lovematch-symbols-container');
+    symContainer.innerHTML = currentLoveMatchSymbols.map((s, i) => `
+        <div class="panel-item-row" data-index="${i}">
+            <span class="row-number">${i + 1}.</span>
+            <input type="text" class="form-input lm-sym-emoji" value="${s.emoji}" placeholder="Emoji" style="width: 50px;">
+            <input type="text" class="form-input lm-sym-name" value="${escapeHtml(s.name)}" placeholder="Name">
+        </div>
+    `).join('');
+
+    // Render Notes
+    const notesContainer = document.getElementById('p-lovematch-notes-container');
+    notesContainer.innerHTML = currentLoveMatchNotes.map((note, i) => `
+        <div class="panel-item-row" data-index="${i}">
+            <span class="row-number">${i + 1}.</span>
+            <input type="text" class="form-input lm-note" value="${escapeHtml(note)}" placeholder="Love note text...">
+            <button class="remove-btn-icon" onclick="removeLoveMatchNote(${i})">🗑️</button>
+        </div>
+    `).join('');
+}
+
+function addLoveMatchNote() {
+    currentLoveMatchNotes.push("New love note...");
+    renderLoveMatch();
+}
+
+function removeLoveMatchNote(index) {
+    if (currentLoveMatchNotes.length <= 1) return showToast('Keep at least one note!', 'error');
+    currentLoveMatchNotes.splice(index, 1);
+    renderLoveMatch();
+}
+
+async function saveLoveMatch() {
+    const symItems = document.querySelectorAll('.lm-sym-emoji');
+    const noteItems = document.querySelectorAll('.lm-note');
+
+    // Update symbols
+    currentLoveMatchSymbols = Array.from(symItems).map((emojiInput, i) => ({
+        emoji: emojiInput.value.trim(),
+        name: document.querySelectorAll('.lm-sym-name')[i].value.trim()
+    }));
+
+    // Update notes
+    currentLoveMatchNotes = Array.from(noteItems).map(input => input.value.trim());
+
+    if (!isFirebaseConfigured()) return showToast('Firebase not configured!', 'error');
+    try {
+        await database.ref(DB_PATHS.panelLoveMatch).set({
+            symbols: currentLoveMatchSymbols,
+            notes: currentLoveMatchNotes
+        });
+        showToast('Love Match saved! 🃏', 'success');
+    } catch (e) { console.error(e); showToast('Error saving love match', 'error'); }
+}
+
+
+// Make remove functions globally accessible
+window.removeTimelineItem = removeTimelineItem;
+window.removeEnvelope = removeEnvelope;
+window.removeBucketItem = removeBucketItem;
+window.removeReason = removeReason;
+window.removeCoupon = removeCoupon;
+window.removeSong = removeSong;
+window.removeFlower = removeFlower;
+window.removeDateRound = removeDateRound;
+window.removeLoveMatchNote = removeLoveMatchNote;
+
+
 
 // Convert file to base64
 function convertToBase64(file) {

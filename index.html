@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="panels.css">
 </head>
 <body>
     <!-- Floating Hearts Background -->
@@ -191,6 +192,159 @@
             </div>
         </section>
 
+        <!-- ====== 8 INTERACTIVE PANELS ====== -->
+
+        <!-- Panel 1: Animated Memory Lane Timeline -->
+        <section class="panel-section timeline-section">
+            <h2 class="section-title">
+                <span class="title-decoration">💫</span>
+                <span>Our Memory Lane</span>
+                <span class="title-decoration">💫</span>
+            </h2>
+            <div class="timeline-wrapper">
+                <!-- Milestones rendered by panels.js -->
+            </div>
+        </section>
+
+        <!-- Panel 2: Open When Envelopes -->
+        <section class="panel-section envelopes-section">
+            <h2 class="section-title">
+                <span class="title-decoration">💌</span>
+                <span>Open When...</span>
+                <span class="title-decoration">💌</span>
+            </h2>
+            <div class="env-grid">
+                <!-- Envelopes rendered by panels.js -->
+            </div>
+        </section>
+
+        <!-- Letter Overlay (for envelopes) -->
+        <div class="letter-overlay" id="letterOverlay">
+            <div class="letter-content panel-glass">
+                <h3 class="letter-title"></h3>
+                <p class="letter-text"></p>
+                <button class="letter-close">Close with Love 💕</button>
+            </div>
+        </div>
+
+        <!-- Panel 3: Couple's Bucket List -->
+        <section class="panel-section bucketlist-section">
+            <h2 class="section-title">
+                <span class="title-decoration">✅</span>
+                <span>Our Bucket List</span>
+                <span class="title-decoration">✅</span>
+            </h2>
+            <div class="bl-container">
+                <!-- Items rendered by panels.js -->
+            </div>
+        </section>
+
+        <!-- Panel 4: Reason Why Jar -->
+        <section class="panel-section jar-section">
+            <h2 class="section-title">
+                <span class="title-decoration">🫙</span>
+                <span>Reasons I Love You</span>
+                <span class="title-decoration">🫙</span>
+            </h2>
+            <div class="jar-wrapper">
+                <!-- Jar rendered by panels.js -->
+            </div>
+            <div class="jar-note">
+                <span class="jar-note-text">Click the jar to discover a reason... 💕</span>
+            </div>
+            <p class="jar-instruction">Tap the jar to shake out a love note ✨</p>
+        </section>
+
+        <!-- Panel 5: Redeemable Love Coupons -->
+        <section class="panel-section coupons-section">
+            <h2 class="section-title">
+                <span class="title-decoration">🎟️</span>
+                <span>Love Coupons</span>
+                <span class="title-decoration">🎟️</span>
+            </h2>
+            <div class="coupon-track">
+                <!-- Coupons rendered by panels.js -->
+            </div>
+        </section>
+
+        <!-- Panel 6: Our Soundtrack -->
+        <section class="panel-section soundtrack-section">
+            <h2 class="section-title">
+                <span class="title-decoration">🎵</span>
+                <span>Our Soundtrack</span>
+                <span class="title-decoration">🎵</span>
+            </h2>
+            <div class="song-list">
+                <!-- Songs rendered by panels.js -->
+            </div>
+        </section>
+
+        <!-- Panel 7: Virtual Daily Garden -->
+        <section class="panel-section garden-section">
+            <h2 class="section-title">
+                <span class="title-decoration">🌸</span>
+                <span>Our Love Garden</span>
+                <span class="title-decoration">🌸</span>
+            </h2>
+            <div class="garden-grid">
+                <!-- Flowers rendered by panels.js -->
+            </div>
+            <div class="flower-message">
+                <span class="flower-msg-text">Click a flower to see it bloom... 🌺</span>
+            </div>
+        </section>
+
+        <!-- Panel 8: Date Night Decision Maker -->
+        <section class="panel-section datenight-section">
+            <h2 class="section-title">
+                <span class="title-decoration">🎲</span>
+                <span>Date Night Planner</span>
+                <span class="title-decoration">🎲</span>
+            </h2>
+            <div class="dn-stage">
+                <div class="dn-round-label"></div>
+                <div class="dn-cards"></div>
+                <div class="dn-winner">
+                    <h3>Your Perfect Date Night! ✨</h3>
+                    <ul class="dn-winner-choices"></ul>
+                    <button class="dn-plan-btn" onclick="resetDateNight()">🔄 Play Again</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Panel 9: Love Match — A Memory Journey -->
+        <section class="panel-section lovematch-section">
+            <div class="lm-bokeh"></div>
+            <h2 class="section-title">
+                <span class="title-decoration">🃏</span>
+                <span>Our Love Match</span>
+                <span class="title-decoration">🃏</span>
+            </h2>
+            <div class="lm-container">
+                <div class="lm-scoreboard">
+                    <div class="lm-stat">💕 Matches: <span class="lm-stat-val" id="lmMatches">0/8</span></div>
+                    <div class="lm-stat">🎯 Moves: <span class="lm-stat-val" id="lmMoves">0</span></div>
+                </div>
+                <div class="lm-board" style="position: relative;">
+                    <!-- Cards rendered by panels.js -->
+                </div>
+                <div class="lm-lovenote">
+                    <span class="lm-lovenote-text"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Love Match Win Overlay -->
+        <div class="lm-win-overlay" id="lmWinOverlay">
+            <div class="lm-win-content">
+                <span class="lm-win-heart">💖</span>
+                <h3 class="lm-win-title">Heart of Memories</h3>
+                <p class="lm-win-msg">Every memory with you is a treasure. I love you!</p>
+                <p class="lm-win-stats"></p>
+                <button class="lm-play-again" onclick="resetLoveMatch()">💕 Play Again</button>
+            </div>
+        </div>
+
         <!-- Footer -->
         <footer class="love-footer">
             <div class="footer-hearts">
@@ -207,5 +361,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <script src="firebase-config.js"></script>
     <script src="script.js"></script>
+    <script src="panels.js"></script>
 </body>
 </html>
