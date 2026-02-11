@@ -1209,6 +1209,11 @@
         height: 85px;
     }
 
+    .lm-card {
+        width: 65px;
+        height: 85px;
+    }
+
     .lm-card-face {
         font-size: 1.6rem;
     }

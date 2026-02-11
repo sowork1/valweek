@@ -33,8 +33,8 @@ function initPanelsWithData() {
     
     // Love Match is an object
     if (window.PANEL_LOVE_MATCH && window.PANEL_LOVE_MATCH.symbols) {
-        LOVE_MATCH_SYMBOLS = window.PANEL_LOVE_MATCH.symbols;
-        LOVE_MATCH_NOTES = window.PANEL_LOVE_MATCH.notes;
+        LM_SYMBOLS = window.PANEL_LOVE_MATCH.symbols;
+        LM_LOVE_NOTES = window.PANEL_LOVE_MATCH.notes;
     }
 
     initPanels();
