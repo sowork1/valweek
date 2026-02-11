@@ -58,7 +58,7 @@
 /* ============================================
    1. ANIMATED MEMORY LANE TIMELINE
    ============================================ */
-.timeline-section .timeline-wrapper {
+.timeline-section .timeline-container {
     max-width: 800px;
     margin: 0 auto;
     position: relative;
@@ -66,7 +66,7 @@
 }
 
 /* Glowing vine line */
-.timeline-wrapper::before {
+.timeline-container::before {
     content: '';
     position: absolute;
     left: 50%;
@@ -172,7 +172,7 @@
 /* ============================================
    2. OPEN WHEN ENVELOPES
    ============================================ */
-.envelopes-section .env-grid {
+.envelopes-section .envelope-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 30px;
@@ -352,7 +352,7 @@
 /* ============================================
    3. COUPLE'S BUCKET LIST
    ============================================ */
-.bucketlist-section .bl-container {
+.bucketlist-section .bucket-list {
     max-width: 600px;
     margin: 0 auto;
     padding: 40px;
@@ -867,6 +867,46 @@
     transition: width 0.3s linear;
 }
 
+/* Audio play button */
+.song-play-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--gradient-love);
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+}
+
+.song-play-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(255, 107, 157, 0.5);
+}
+
+/* Playing state */
+.song-card.playing {
+    background: rgba(255, 107, 157, 0.12);
+    border-color: var(--love-pink);
+    box-shadow: 0 0 20px rgba(255, 107, 157, 0.2);
+}
+
+.song-card.playing .song-vinyl {
+    animation: spinVinyl 3s linear infinite;
+}
+
+/* Spinning vinyl in the main player */
+.sp-vinyl.spinning {
+    animation: spinVinyl 3s linear infinite;
+}
+
+
 /* ============================================
    7. VIRTUAL DAILY GARDEN
    ============================================ */
@@ -1177,6 +1217,97 @@
     box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
 }
 
+/* Date Night options rendered by panels.js */
+.dn-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.dn-option {
+    flex: 1;
+    min-width: 200px;
+    max-width: 280px;
+    padding: 30px 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 2px solid rgba(255, 107, 157, 0.2);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-align: center;
+}
+
+.dn-option:hover {
+    transform: translateY(-6px) scale(1.03);
+    border-color: var(--love-pink);
+    background: rgba(255, 107, 157, 0.1);
+    box-shadow: 0 12px 40px rgba(255, 107, 157, 0.25);
+}
+
+.dn-opt-icon {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.dn-opt-title {
+    display: block;
+    font-family: var(--font-script);
+    font-size: 1.3rem;
+    color: var(--love-pink);
+    margin-bottom: 6px;
+}
+
+.dn-opt-desc {
+    display: block;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+}
+
+.dn-card h3 {
+    font-family: var(--font-fancy);
+    font-size: 1.6rem;
+    color: var(--dreamy-lavender);
+    margin-bottom: 10px;
+}
+
+.dn-card .dn-progress {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 10px;
+}
+
+/* Date Night result */
+.dn-result {
+    text-align: center;
+    padding: 50px 30px;
+    border-radius: 24px;
+    background: rgba(255, 215, 0, 0.06);
+    border: 2px solid var(--gold-accent);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.dn-result .dn-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+}
+
+.dn-result h3 {
+    font-family: var(--font-fancy);
+    font-size: 2.5rem;
+    color: var(--gold-accent);
+    margin-bottom: 10px;
+}
+
+.dn-result p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.1rem;
+}
+
 /* ============================================
    RESPONSIVE
    ============================================ */
@@ -1186,7 +1317,7 @@
     }
 
     /* Timeline mobile: single column */
-    .timeline-wrapper::before {
+    .timeline-container::before {
         left: 20px;
     }
 

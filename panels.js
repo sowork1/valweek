@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Fallback if event never fires (e.g. firebase error) - use defaults after 2s
         setTimeout(() => {
-            if (!document.querySelector('.timeline-wrapper').innerHTML) {
+            if (!document.querySelector('.timeline-container').innerHTML) {
                 console.log('Timeout waiting for data, initializing with defaults');
                 initPanelsWithData();
             }
@@ -65,7 +65,7 @@ let TIMELINE_DATA = [
 ];
 
 function initMemoryLane() {
-    const wrapper = document.querySelector('.timeline-wrapper');
+    const wrapper = document.querySelector('.timeline-container');
     if (!wrapper) return;
 
     wrapper.innerHTML = TIMELINE_DATA.map((m, i) => `
@@ -104,7 +104,7 @@ let ENVELOPE_DATA = [
 ];
 
 function initEnvelopes() {
-    const grid = document.querySelector('.env-grid');
+    const grid = document.querySelector('.envelope-grid');
     if (!grid) return;
 
     grid.innerHTML = ENVELOPE_DATA.map((e, i) => `
@@ -202,7 +202,7 @@ let BUCKET_LIST_DATA = [
 ];
 
 function initBucketList() {
-    const container = document.querySelector('.bl-container');
+    const container = document.querySelector('.bucket-list');
     if (!container) return;
 
     container.innerHTML = BUCKET_LIST_DATA.map((item, i) => `
@@ -436,13 +436,32 @@ let SOUNDTRACK_DATA = [
 ];
 
 let progressIntervals = {};
+let currentAudio = null;
+let currentPlayingIdx = -1;
 
 function initSoundtrack() {
     const listEl = document.querySelector('.song-list');
     const player = document.querySelector('.song-player');
     if (!listEl || !player) return;
 
-    // Play first song
+    // Create a shared audio element
+    if (!currentAudio) {
+        currentAudio = new Audio();
+        currentAudio.addEventListener('ended', () => {
+            // Auto-play next song
+            const nextIdx = (currentPlayingIdx + 1) % SOUNDTRACK_DATA.length;
+            playSong(nextIdx);
+        });
+        currentAudio.addEventListener('timeupdate', () => {
+            if (currentAudio.duration && currentPlayingIdx >= 0) {
+                const pct = (currentAudio.currentTime / currentAudio.duration) * 100;
+                const fill = document.getElementById(`progress-${currentPlayingIdx}`);
+                if (fill) fill.style.width = pct + '%';
+            }
+        });
+    }
+
+    // Play first song info
     if (SOUNDTRACK_DATA.length > 0) {
         player.querySelector('.sp-meta h4').textContent = SOUNDTRACK_DATA[0].name;
         player.querySelector('.sp-meta p').textContent = SOUNDTRACK_DATA[0].artist;
@@ -451,20 +470,21 @@ function initSoundtrack() {
 
     listEl.innerHTML = SOUNDTRACK_DATA.map((s, i) => `
         <div>
-            <div class="song-card" data-idx="${i}">
+            <div class="song-card ${s.audioUrl ? 'has-audio' : ''}" data-idx="${i}">
                 <div class="song-vinyl"></div>
                 <div class="song-info">
                     <div class="song-name">${s.name}</div>
                     <div class="song-artist">${s.artist}</div>
                     <div class="song-progress"><div class="song-progress-fill" id="progress-${i}"></div></div>
                 </div>
+                ${s.audioUrl ? `<button class="song-play-btn" data-idx="${i}" title="Play">▶</button>` : ''}
                 <button class="song-story-btn" data-idx="${i}">Our Story 💫</button>
             </div>
             <div class="song-story" id="story-${i}">${s.story}</div>
         </div>
     `).join('');
 
-    // Click handler
+    // Click on card → select song + play if has audio
     listEl.querySelectorAll('.song-card').forEach(item => {
         item.addEventListener('click', () => {
             const idx = parseInt(item.dataset.idx);
@@ -472,6 +492,23 @@ function initSoundtrack() {
             player.querySelector('.sp-meta h4').textContent = song.name;
             player.querySelector('.sp-meta p').textContent = song.artist;
             player.querySelector('.sp-story p').textContent = song.story;
+
+            if (song.audioUrl) {
+                playSong(idx);
+            }
+        });
+    });
+
+    // Play button click
+    listEl.querySelectorAll('.song-play-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const idx = parseInt(this.dataset.idx);
+            if (currentPlayingIdx === idx && !currentAudio.paused) {
+                pauseSong();
+            } else {
+                playSong(idx);
+            }
         });
     });
 
@@ -486,8 +523,8 @@ function initSoundtrack() {
         });
     });
 
-    // Hover progress bar animation
-    listEl.querySelectorAll('.song-card').forEach(card => {
+    // Hover progress bar animation (only for songs without audio)
+    listEl.querySelectorAll('.song-card:not(.has-audio)').forEach(card => {
         card.addEventListener('mouseenter', function() {
             const idx = this.dataset.idx;
             const fill = document.getElementById(`progress-${idx}`);
@@ -506,6 +543,54 @@ function initSoundtrack() {
         });
     });
 }
+
+function playSong(idx) {
+    const song = SOUNDTRACK_DATA[idx];
+    if (!song || !song.audioUrl) return;
+
+    // Reset previous playing card
+    if (currentPlayingIdx >= 0) {
+        const prevCard = document.querySelector(`.song-card[data-idx="${currentPlayingIdx}"]`);
+        if (prevCard) prevCard.classList.remove('playing');
+        const prevBtn = document.querySelector(`.song-play-btn[data-idx="${currentPlayingIdx}"]`);
+        if (prevBtn) prevBtn.textContent = '▶';
+        const prevFill = document.getElementById(`progress-${currentPlayingIdx}`);
+        if (prevFill) prevFill.style.width = '0%';
+    }
+
+    currentPlayingIdx = idx;
+    currentAudio.src = song.audioUrl;
+    currentAudio.play().catch(err => console.log('Audio play blocked:', err));
+
+    // Update UI
+    const card = document.querySelector(`.song-card[data-idx="${idx}"]`);
+    if (card) card.classList.add('playing');
+    const btn = document.querySelector(`.song-play-btn[data-idx="${idx}"]`);
+    if (btn) btn.textContent = '⏸';
+
+    // Update player section
+    const player = document.querySelector('.song-player');
+    if (player) {
+        player.querySelector('.sp-meta h4').textContent = song.name;
+        player.querySelector('.sp-meta p').textContent = song.artist;
+        player.querySelector('.sp-story p').textContent = song.story;
+        player.querySelector('.sp-vinyl').classList.add('spinning');
+    }
+}
+
+function pauseSong() {
+    if (!currentAudio) return;
+    currentAudio.pause();
+
+    const card = document.querySelector(`.song-card[data-idx="${currentPlayingIdx}"]`);
+    if (card) card.classList.remove('playing');
+    const btn = document.querySelector(`.song-play-btn[data-idx="${currentPlayingIdx}"]`);
+    if (btn) btn.textContent = '▶';
+
+    const player = document.querySelector('.song-player');
+    if (player) player.querySelector('.sp-vinyl').classList.remove('spinning');
+}
+
 
 /* ============================================
    7. VIRTUAL DAILY GARDEN
