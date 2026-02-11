@@ -18,7 +18,7 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
-const storage = firebase.storage();
+// const storage = firebase.storage(); REMOVED
 
 // Database reference paths
 const DB_PATHS = {

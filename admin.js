@@ -169,7 +169,7 @@ let currentEnvelopes = [];
 let currentBucketList = [];
 let currentReasons = [];
 let currentCoupons = [];
-let currentSoundtrack = [];
+    // let currentSoundtrack = []; REMOVED
 let currentGarden = [];
 let currentDateNight = [];
 let currentLoveMatchSymbols = [];
@@ -357,10 +357,7 @@ function initEventListeners() {
     if (addCouponBtn) addCouponBtn.addEventListener('click', addCoupon);
     document.getElementById('save-p-coupons-btn').addEventListener('click', saveCoupons);
 
-    // Panel 6: Soundtrack
-    const addSongBtn = document.getElementById('add-p-soundtrack-btn');
-    if (addSongBtn) addSongBtn.addEventListener('click', addSong);
-    document.getElementById('save-p-soundtrack-btn').addEventListener('click', saveSoundtrack);
+    // Panel 6: Soundtrack REMOVED
 
     // Panel 7: Garden
     const addFlowerBtn = document.getElementById('add-p-garden-btn');
@@ -923,119 +920,8 @@ async function saveCoupons() {
 }
 
 // ============================================
-// PANEL 6: SOUNDTRACK
+// PANEL 6: SOUNDTRACK REMOVED
 // ============================================
-function renderSoundtrack() {
-    const container = document.getElementById('p-soundtrack-container');
-    container.innerHTML = currentSoundtrack.map((s, i) => `
-        <div class="panel-item" data-index="${i}">
-            <div class="panel-item-header">
-                <span class="item-title">Song ${i + 1}</span>
-                <button class="remove-btn" onclick="removeSong(${i})">🗑️ Remove</button>
-            </div>
-            <div class="form-group">
-                <label>Song Name</label>
-                <input type="text" class="form-input st-name" value="${escapeHtml(s.name)}" placeholder="Song Title">
-            </div>
-            <div class="form-group">
-                <label>Artist</label>
-                <input type="text" class="form-input st-artist" value="${escapeHtml(s.artist)}" placeholder="Artist Name">
-            </div>
-            <div class="form-group">
-                <label>Our Story/Memory</label>
-                <textarea class="form-textarea st-story" placeholder="Why is this song special?">${escapeHtml(s.story)}</textarea>
-            </div>
-            <div class="form-group">
-                <label>Audio File ${s.audioUrl ? '✅ (Uploaded)' : '(No audio yet)'}</label>
-                <input type="file" class="form-input st-audio-file" accept="audio/*" data-index="${i}" style="padding: 8px;">
-                ${s.audioUrl ? `<div style="margin-top: 6px;"><audio controls src="${s.audioUrl}" style="width:100%; max-height:40px;"></audio></div>` : ''}
-            </div>
-        </div>
-    `).join('');
-
-    // Attach audio file handlers
-    container.querySelectorAll('.st-audio-file').forEach(input => {
-        input.addEventListener('change', handleAudioFileSelect);
-    });
-}
-
-function handleAudioFileSelect(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const idx = parseInt(event.target.dataset.index);
-
-    if (!file.type.startsWith('audio/')) {
-        showToast(`${file.name} is not an audio file!`, 'error');
-        event.target.value = '';
-        return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-        showToast(`${file.name} is too large (max 5MB)`, 'error');
-        event.target.value = '';
-        return;
-    }
-
-    // Store the file reference for upload during save
-    if (!window._pendingAudioFiles) window._pendingAudioFiles = {};
-    window._pendingAudioFiles[idx] = file;
-    showToast(`Audio file "${file.name}" selected! Save to upload. 🎵`, 'info');
-}
-
-function addSong() {
-    currentSoundtrack.push({ name: "", artist: "", story: "", audioUrl: "" });
-    renderSoundtrack();
-    showToast('Song added!', 'success');
-}
-
-function removeSong(index) {
-    if (currentSoundtrack.length <= 1) return showToast('Keep at least one song!', 'error');
-    currentSoundtrack.splice(index, 1);
-    // Clean up any pending audio file for this index
-    if (window._pendingAudioFiles) delete window._pendingAudioFiles[index];
-    renderSoundtrack();
-}
-
-async function saveSoundtrack() {
-    const items = document.querySelectorAll('#p-soundtrack-container .panel-item');
-    const updatedSoundtrack = Array.from(items).map((item, i) => ({
-        name: item.querySelector('.st-name').value.trim(),
-        artist: item.querySelector('.st-artist').value.trim(),
-        story: item.querySelector('.st-story').value.trim(),
-        audioUrl: currentSoundtrack[i]?.audioUrl || ''
-    }));
-
-    if (!isFirebaseConfigured()) return showToast('Firebase not configured!', 'error');
-
-    // Upload any pending audio files to Firebase Storage
-    const pendingFiles = window._pendingAudioFiles || {};
-    const uploadPromises = Object.entries(pendingFiles).map(async ([idx, file]) => {
-        const i = parseInt(idx);
-        if (i >= updatedSoundtrack.length) return;
-        try {
-            showToast(`Uploading "${file.name}"...`, 'info');
-            const storageRef = storage.ref(`valentine/audio/song_${i}_${Date.now()}_${file.name}`);
-            const snapshot = await storageRef.put(file);
-            const downloadUrl = await snapshot.ref.getDownloadURL();
-            updatedSoundtrack[i].audioUrl = downloadUrl;
-            showToast(`"${file.name}" uploaded! ✅`, 'success');
-        } catch (err) {
-            console.error(`Error uploading audio for song ${i}:`, err);
-            showToast(`Failed to upload "${file.name}"`, 'error');
-        }
-    });
-
-    await Promise.all(uploadPromises);
-    window._pendingAudioFiles = {};
-
-    currentSoundtrack = updatedSoundtrack;
-
-    try {
-        await database.ref(DB_PATHS.panelSoundtrack).set(currentSoundtrack);
-        showToast('Soundtrack saved! 🎵', 'success');
-        renderSoundtrack(); // Re-render to show audio preview
-    } catch (e) { console.error(e); showToast('Error saving soundtrack', 'error'); }
-}
 
 
 

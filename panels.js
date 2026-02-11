@@ -27,7 +27,7 @@ function initPanelsWithData() {
     if (window.PANEL_BUCKET_LIST && window.PANEL_BUCKET_LIST.length > 0) BUCKET_LIST_DATA = window.PANEL_BUCKET_LIST;
     if (window.PANEL_REASONS && window.PANEL_REASONS.length > 0) REASON_DATA = window.PANEL_REASONS;
     if (window.PANEL_COUPONS && window.PANEL_COUPONS.length > 0) COUPON_DATA = window.PANEL_COUPONS;
-    if (window.PANEL_SOUNDTRACK && window.PANEL_SOUNDTRACK.length > 0) SOUNDTRACK_DATA = window.PANEL_SOUNDTRACK;
+    // if (window.PANEL_SOUNDTRACK && window.PANEL_SOUNDTRACK.length > 0) SOUNDTRACK_DATA = window.PANEL_SOUNDTRACK; // REMOVED
     if (window.PANEL_GARDEN && window.PANEL_GARDEN.length > 0) GARDEN_DATA = window.PANEL_GARDEN;
     if (window.PANEL_DATE_NIGHT && window.PANEL_DATE_NIGHT.length > 0) DATE_NIGHT_DATA = window.PANEL_DATE_NIGHT;
     
@@ -46,7 +46,7 @@ function initPanels() {
     initBucketList();
     initReasonJar();
     initCoupons();
-    initSoundtrack();
+    // initSoundtrack(); REMOVED
     initGarden();
     initDateNight();
     initLoveMatch();
@@ -426,170 +426,9 @@ function launchConfetti() {
 /* ============================================
    6. SOUNDTRACK GALLERY
    ============================================ */
-let SOUNDTRACK_DATA = [
-    { name: "Perfect", artist: "Ed Sheeran", story: "This was playing the first time we danced together. Every lyric felt like it was written just for us." },
-    { name: "All of Me", artist: "John Legend", story: "You played this for me on our anniversary and I couldn't hold back the tears. It's our truth." },
-    { name: "A Thousand Years", artist: "Christina Perri", story: "This captures exactly how I feel — I've loved you for a thousand years and I'll love you for a thousand more." },
-    { name: "Thinking Out Loud", artist: "Ed Sheeran", story: "We slow-danced in the kitchen to this song. One of my most cherished memories." },
-    { name: "At Last", artist: "Etta James", story: "A timeless classic that perfectly describes the moment I found you after all the waiting." },
-    { name: "Can't Help Falling in Love", artist: "Elvis Presley", story: "Because falling in love with you was the most natural and beautiful thing I've ever experienced." }
-];
+le    // Panel 6: Soundtrack REMOVED
 
-let progressIntervals = {};
-let currentAudio = null;
-let currentPlayingIdx = -1;
-
-function initSoundtrack() {
-    const listEl = document.querySelector('.song-list');
-    const player = document.querySelector('.song-player');
-    if (!listEl || !player) return;
-
-    // Create a shared audio element
-    if (!currentAudio) {
-        currentAudio = new Audio();
-        currentAudio.addEventListener('ended', () => {
-            // Auto-play next song
-            const nextIdx = (currentPlayingIdx + 1) % SOUNDTRACK_DATA.length;
-            playSong(nextIdx);
-        });
-        currentAudio.addEventListener('timeupdate', () => {
-            if (currentAudio.duration && currentPlayingIdx >= 0) {
-                const pct = (currentAudio.currentTime / currentAudio.duration) * 100;
-                const fill = document.getElementById(`progress-${currentPlayingIdx}`);
-                if (fill) fill.style.width = pct + '%';
-            }
-        });
-    }
-
-    // Play first song info
-    if (SOUNDTRACK_DATA.length > 0) {
-        player.querySelector('.sp-meta h4').textContent = SOUNDTRACK_DATA[0].name;
-        player.querySelector('.sp-meta p').textContent = SOUNDTRACK_DATA[0].artist;
-        player.querySelector('.sp-story p').textContent = SOUNDTRACK_DATA[0].story;
-    }
-
-    listEl.innerHTML = SOUNDTRACK_DATA.map((s, i) => `
-        <div>
-            <div class="song-card ${s.audioUrl ? 'has-audio' : ''}" data-idx="${i}">
-                <div class="song-vinyl"></div>
-                <div class="song-info">
-                    <div class="song-name">${s.name}</div>
-                    <div class="song-artist">${s.artist}</div>
-                    <div class="song-progress"><div class="song-progress-fill" id="progress-${i}"></div></div>
-                </div>
-                ${s.audioUrl ? `<button class="song-play-btn" data-idx="${i}" title="Play">▶</button>` : ''}
-                <button class="song-story-btn" data-idx="${i}">Our Story 💫</button>
-            </div>
-            <div class="song-story" id="story-${i}">${s.story}</div>
-        </div>
-    `).join('');
-
-    // Click on card → select song + play if has audio
-    listEl.querySelectorAll('.song-card').forEach(item => {
-        item.addEventListener('click', () => {
-            const idx = parseInt(item.dataset.idx);
-            const song = SOUNDTRACK_DATA[idx];
-            player.querySelector('.sp-meta h4').textContent = song.name;
-            player.querySelector('.sp-meta p').textContent = song.artist;
-            player.querySelector('.sp-story p').textContent = song.story;
-
-            if (song.audioUrl) {
-                playSong(idx);
-            }
-        });
-    });
-
-    // Play button click
-    listEl.querySelectorAll('.song-play-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const idx = parseInt(this.dataset.idx);
-            if (currentPlayingIdx === idx && !currentAudio.paused) {
-                pauseSong();
-            } else {
-                playSong(idx);
-            }
-        });
-    });
-
-    // Story toggle
-    listEl.querySelectorAll('.song-story-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const idx = this.dataset.idx;
-            const story = document.getElementById(`story-${idx}`);
-            story.classList.toggle('open');
-            this.textContent = story.classList.contains('open') ? 'Close ✕' : 'Our Story 💫';
-        });
-    });
-
-    // Hover progress bar animation (only for songs without audio)
-    listEl.querySelectorAll('.song-card:not(.has-audio)').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            const idx = this.dataset.idx;
-            const fill = document.getElementById(`progress-${idx}`);
-            let width = 0;
-            progressIntervals[idx] = setInterval(() => {
-                width += 0.5;
-                if (width > 100) width = 0;
-                fill.style.width = width + '%';
-            }, 50);
-        });
-        card.addEventListener('mouseleave', function() {
-            const idx = this.dataset.idx;
-            clearInterval(progressIntervals[idx]);
-            const fill = document.getElementById(`progress-${idx}`);
-            fill.style.width = '0%';
-        });
-    });
-}
-
-function playSong(idx) {
-    const song = SOUNDTRACK_DATA[idx];
-    if (!song || !song.audioUrl) return;
-
-    // Reset previous playing card
-    if (currentPlayingIdx >= 0) {
-        const prevCard = document.querySelector(`.song-card[data-idx="${currentPlayingIdx}"]`);
-        if (prevCard) prevCard.classList.remove('playing');
-        const prevBtn = document.querySelector(`.song-play-btn[data-idx="${currentPlayingIdx}"]`);
-        if (prevBtn) prevBtn.textContent = '▶';
-        const prevFill = document.getElementById(`progress-${currentPlayingIdx}`);
-        if (prevFill) prevFill.style.width = '0%';
-    }
-
-    currentPlayingIdx = idx;
-    currentAudio.src = song.audioUrl;
-    currentAudio.play().catch(err => console.log('Audio play blocked:', err));
-
-    // Update UI
-    const card = document.querySelector(`.song-card[data-idx="${idx}"]`);
-    if (card) card.classList.add('playing');
-    const btn = document.querySelector(`.song-play-btn[data-idx="${idx}"]`);
-    if (btn) btn.textContent = '⏸';
-
-    // Update player section
-    const player = document.querySelector('.song-player');
-    if (player) {
-        player.querySelector('.sp-meta h4').textContent = song.name;
-        player.querySelector('.sp-meta p').textContent = song.artist;
-        player.querySelector('.sp-story p').textContent = song.story;
-        player.querySelector('.sp-vinyl').classList.add('spinning');
-    }
-}
-
-function pauseSong() {
-    if (!currentAudio) return;
-    currentAudio.pause();
-
-    const card = document.querySelector(`.song-card[data-idx="${currentPlayingIdx}"]`);
-    if (card) card.classList.remove('playing');
-    const btn = document.querySelector(`.song-play-btn[data-idx="${currentPlayingIdx}"]`);
-    if (btn) btn.textContent = '▶';
-
-    const player = document.querySelector('.song-player');
-    if (player) player.querySelector('.sp-vinyl').classList.remove('spinning');
-}
+    // Panel 7: Daily Garden
 
 
 /* ============================================
