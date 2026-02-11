@@ -426,7 +426,7 @@ function launchConfetti() {
 /* ============================================
    6. SOUNDTRACK GALLERY
    ============================================ */
-const SOUNDTRACK_DATA = [
+let SOUNDTRACK_DATA = [
     { name: "Perfect", artist: "Ed Sheeran", story: "This was playing the first time we danced together. Every lyric felt like it was written just for us." },
     { name: "All of Me", artist: "John Legend", story: "You played this for me on our anniversary and I couldn't hold back the tears. It's our truth." },
     { name: "A Thousand Years", artist: "Christina Perri", story: "This captures exactly how I feel — I've loved you for a thousand years and I'll love you for a thousand more." },
@@ -510,7 +510,7 @@ function initSoundtrack() {
 /* ============================================
    7. VIRTUAL DAILY GARDEN
    ============================================ */
-const GARDEN_DATA = [
+let GARDEN_DATA = [
     { emoji: "🌹", name: "Rose", date: 7, msg: "Like this rose, my love for you is timeless and beautiful. You make every day brighter." },
     { emoji: "🌷", name: "Tulip", date: 8, msg: "A tulip for my proposal — you are the perfect partner I've always dreamed of." },
     { emoji: "🌻", name: "Sunflower", date: 9, msg: "You are my sunflower — you turn my darkest days into bright, golden moments." },
@@ -586,7 +586,7 @@ function initGarden() {
 /* ============================================
    8. DATE NIGHT DECISION MAKER
    ============================================ */
-const DATE_NIGHT_DATA = [
+let DATE_NIGHT_DATA = [
     {
         question: "What's the vibe?",
         options: [
@@ -629,6 +629,9 @@ function renderRound(idx) {
                 <p>You've planned the perfect evening.</p>
             </div>
         `;
+        setTimeout(() => {
+            container.querySelector('.dn-result').classList.add('visible');
+        }, 100);
         return;
     }
 
@@ -648,6 +651,9 @@ function renderRound(idx) {
             <div class="dn-progress">Round ${idx + 1} / ${DATE_NIGHT_DATA.length}</div>
         </div>
     `;
+    setTimeout(() => {
+        container.querySelector('.dn-card').classList.add('visible');
+    }, 100);
 }
 
 // Global handler for options (needs to be global or attached to window)
@@ -661,7 +667,7 @@ window.selectDateOption = (roundIdx, optIdx) => {
 /* ============================================
    9. LOVE MATCH: A MEMORY JOURNEY
    ============================================ */
-const LM_SYMBOLS = [
+let LM_SYMBOLS = [
     { emoji: '🌹', name: 'Rose' },
     { emoji: '💍', name: 'Ring' },
     { emoji: '💌', name: 'Letter' },
@@ -672,7 +678,7 @@ const LM_SYMBOLS = [
     { emoji: '💎', name: 'Diamond' }
 ];
 
-const LM_LOVE_NOTES = [
+let LM_LOVE_NOTES = [
     "You are my sunshine on cloudy days ☀️",
     "I love your laugh more than anything 💕",
     "You make my heart skip a beat 💓",
