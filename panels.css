@@ -892,7 +892,7 @@
     margin: 0 auto;
     position: relative;
     min-height: 300px;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .dn-round-label {
