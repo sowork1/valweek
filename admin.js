@@ -333,49 +333,49 @@ function initEventListeners() {
     // ============================================
     
     // Panel 1: Timeline
-    const addTimelineBtn = document.getElementById('add-timeline-btn');
+    const addTimelineBtn = document.getElementById('add-p-timeline-btn');
     if (addTimelineBtn) addTimelineBtn.addEventListener('click', addTimelineItem);
-    document.getElementById('save-timeline-btn').addEventListener('click', saveTimeline);
+    document.getElementById('save-p-timeline-btn').addEventListener('click', saveTimeline);
 
     // Panel 2: Envelopes
-    const addEnvelopeBtn = document.getElementById('add-envelope-btn');
+    const addEnvelopeBtn = document.getElementById('add-p-envelopes-btn');
     if (addEnvelopeBtn) addEnvelopeBtn.addEventListener('click', addEnvelope);
-    document.getElementById('save-envelopes-btn').addEventListener('click', saveEnvelopes);
+    document.getElementById('save-p-envelopes-btn').addEventListener('click', saveEnvelopes);
 
     // Panel 3: Bucket List
-    const addBucketBtn = document.getElementById('add-bucket-btn');
+    const addBucketBtn = document.getElementById('add-p-bucketlist-btn');
     if (addBucketBtn) addBucketBtn.addEventListener('click', addBucketItem);
-    document.getElementById('save-bucket-btn').addEventListener('click', saveBucketList);
+    document.getElementById('save-p-bucketlist-btn').addEventListener('click', saveBucketList);
 
     // Panel 4: Reason Jar
-    const addReasonBtn = document.getElementById('add-reason-btn');
+    const addReasonBtn = document.getElementById('add-p-reasons-btn');
     if (addReasonBtn) addReasonBtn.addEventListener('click', addReason);
-    document.getElementById('save-reasons-btn').addEventListener('click', saveReasons);
+    document.getElementById('save-p-reasons-btn').addEventListener('click', saveReasons);
 
     // Panel 5: Coupons
-    const addCouponBtn = document.getElementById('add-coupon-btn');
+    const addCouponBtn = document.getElementById('add-p-coupons-btn');
     if (addCouponBtn) addCouponBtn.addEventListener('click', addCoupon);
-    document.getElementById('save-coupons-btn').addEventListener('click', saveCoupons);
+    document.getElementById('save-p-coupons-btn').addEventListener('click', saveCoupons);
 
     // Panel 6: Soundtrack
-    const addSongBtn = document.getElementById('add-song-btn');
+    const addSongBtn = document.getElementById('add-p-soundtrack-btn');
     if (addSongBtn) addSongBtn.addEventListener('click', addSong);
-    document.getElementById('save-soundtrack-btn').addEventListener('click', saveSoundtrack);
+    document.getElementById('save-p-soundtrack-btn').addEventListener('click', saveSoundtrack);
 
     // Panel 7: Garden
-    const addFlowerBtn = document.getElementById('add-flower-btn');
+    const addFlowerBtn = document.getElementById('add-p-garden-btn');
     if (addFlowerBtn) addFlowerBtn.addEventListener('click', addFlower);
-    document.getElementById('save-garden-btn').addEventListener('click', saveGarden);
+    document.getElementById('save-p-garden-btn').addEventListener('click', saveGarden);
 
     // Panel 8: Date Night
-    const addDateBtn = document.getElementById('add-datenight-btn');
+    const addDateBtn = document.getElementById('add-p-datenight-btn');
     if (addDateBtn) addDateBtn.addEventListener('click', addDateRound);
-    document.getElementById('save-datenight-btn').addEventListener('click', saveDateNight);
+    document.getElementById('save-p-datenight-btn').addEventListener('click', saveDateNight);
 
     // Panel 9: Love Match
-    const addNoteBtn = document.getElementById('add-lovematch-note-btn');
+    const addNoteBtn = document.getElementById('add-p-lovematch-note-btn');
     if (addNoteBtn) addNoteBtn.addEventListener('click', addLoveMatchNote);
-    document.getElementById('save-lovematch-btn').addEventListener('click', saveLoveMatch);
+    document.getElementById('save-p-lovematch-btn').addEventListener('click', saveLoveMatch);
 }
 
 // ============================================
